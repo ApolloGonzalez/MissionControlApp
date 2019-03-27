@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   model: any = {};
 
-  constructor(public authService: AuthService, private alertify: AlertifyService, 
+  constructor(public authService: AuthService, private alertify: AlertifyService,
     private router: Router) { }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
 
   login() {
     this.authService.login(this.model).subscribe(next => {
-      this.alertify.success('Logged in sccessfully');
+      this.alertify.success('Logged in successfully');
     }, error => {
       this.alertify.error(error);
     }, () => {
