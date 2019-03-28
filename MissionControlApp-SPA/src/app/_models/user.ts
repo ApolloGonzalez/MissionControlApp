@@ -6,7 +6,7 @@ export interface User {
     knownAs: string;
     email: string;
     created: Date;
-    lactActive: Date;
+    lastActive: Date;
     photoUrl: string;
     city: string;
     country?: string;
