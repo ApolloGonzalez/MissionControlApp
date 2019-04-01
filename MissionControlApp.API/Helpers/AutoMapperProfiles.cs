@@ -19,6 +19,7 @@ namespace MissionControlApp.API.Helpers
                 });
             CreateMap<Photo, PhotosForDetailDto>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<UserForRegisterDto, User>();
         }
         
     }
