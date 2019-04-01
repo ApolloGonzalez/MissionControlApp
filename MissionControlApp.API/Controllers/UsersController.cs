@@ -7,17 +7,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MissionControlApp.API.Data;
 using MissionControlApp.API.Dtos;
+using MissionControlApp.API.Helpers;
 
 namespace MissionControlApp.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IDatingRepository _repo;
+        private readonly IMissionRepository _repo;
         private readonly IMapper _mapper;
-        public UsersController(IDatingRepository repo, IMapper mapper)
+        public UsersController(IMissionRepository repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;

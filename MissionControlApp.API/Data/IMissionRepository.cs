@@ -4,7 +4,7 @@ using MissionControlApp.API.Models;
 
 namespace MissionControlApp.API.Data
 {
-    public interface IDatingRepository
+    public interface IMissionRepository
     {
          void Add<T>(T entity) where T: class;
          void Delete<T>(T entity) where T: class;

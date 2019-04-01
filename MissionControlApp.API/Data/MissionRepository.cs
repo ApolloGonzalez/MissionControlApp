@@ -5,11 +5,11 @@ using MissionControlApp.API.Models;
 
 namespace MissionControlApp.API.Data
 {
-    public class DatingRepository : IDatingRepository
+    public class MissionRepository : IMissionRepository
     {
         private readonly DataContext _context;
 
-        public DatingRepository(DataContext context)
+        public MissionRepository(DataContext context)
         {
             _context = context;
         }
