@@ -1,24 +1,32 @@
 using System.Linq;
 using AutoMapper;
-using MissionControlApp.API.Dtos;
-using MissionControlApp.API.Models;
+using DatingApp.API.Dtos;
+using DatingApp.API.Models;
 
-namespace MissionControlApp.API.Helpers
+namespace DatingApp.API.Helpers
 {
     public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()
         {
-            CreateMap<User,UserForListDto>()
+            CreateMap<User, UserForListDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+                })
+                .ForMember(dest => dest.Age, opt => {
+                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
-            CreateMap<User, UserForDetailDto>()                
+            CreateMap<User, UserForDetailedDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+                })
+                .ForMember(dest => dest.Age, opt => {
+                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
-            CreateMap<Photo, PhotosForDetailDto>();
+            CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<UserForRegisterDto, User>();
             CreateMap<MessageForCreationDto, Message>().ReverseMap();
             CreateMap<Message, MessageToReturnDto>()
@@ -27,6 +35,5 @@ namespace MissionControlApp.API.Helpers
                 .ForMember(m => m.RecipientPhotoUrl, opt => opt
                     .MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url));
         }
-        
     }
 }

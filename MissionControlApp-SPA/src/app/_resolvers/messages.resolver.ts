@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Resolve, Router, ActivatedRouteSnapshot} from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Observable, of } from 'rxjs';
@@ -18,11 +18,11 @@ export class MessagesResolver implements Resolve<Message[]> {
 
     resolve(route: ActivatedRouteSnapshot): Observable<Message[]> {
         return this.userService.getMessages(this.authService.decodedToken.nameid,
-                this.pageNumber, this.pageSize, this.messageContainer).pipe(
+              this.pageNumber, this.pageSize, this.messageContainer).pipe(
             catchError(error => {
-               this.alertify.error('Problem retrieving messages from resolver.');
-               this.router.navigate(['/home']);
-               return of(null);
+                this.alertify.error('Problem retrieving messages');
+                this.router.navigate(['/home']);
+                return of(null);
             })
         );
     }

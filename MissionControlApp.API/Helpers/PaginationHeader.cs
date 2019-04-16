@@ -1,4 +1,4 @@
-namespace MissionControlApp.API.Helpers
+namespace DatingApp.API.Helpers
 {
     public class PaginationHeader
     {

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MissionControl-SPA": {
+    "DatingApp-SPA": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/MissionControl-SPA",
+            "outputPath": "../DatingApp.API/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,8 +24,11 @@
             ],
             "styles": [
               "src/styles.css"
+
             ],
-            "scripts": ["node_modules/alertifyjs/build/alertify.min.js"]
+            "scripts": [
+              "node_modules/alertifyjs/build/alertify.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -50,18 +53,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "MissionControl-SPA:build"
+            "browserTarget": "DatingApp-SPA:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "MissionControl-SPA:build:production"
+              "browserTarget": "DatingApp-SPA:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MissionControl-SPA:build"
+            "browserTarget": "DatingApp-SPA:build"
           }
         },
         "test": {
@@ -95,7 +98,7 @@
         }
       }
     },
-    "MissionControl-SPA-e2e": {
+    "DatingApp-SPA-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +106,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "MissionControl-SPA:serve"
+            "devServerTarget": "DatingApp-SPA:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "MissionControl-SPA:serve:production"
+              "devServerTarget": "DatingApp-SPA:serve:production"
             }
           }
         },
@@ -123,5 +126,5 @@
       }
     }
   },
-  "defaultProject": "MissionControl-SPA"
+  "defaultProject": "DatingApp-SPA"
 }
