@@ -13,6 +13,13 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { ListsResolver } from './_resolvers/lists.resolver';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { MissionListResolver } from './_resolvers/mission-list.resolver';
+import { MissionListComponent } from './missions/mission-list/mission-list.component';
+import { MissionDetailComponent } from './missions/mission-detail/mission-detail.component';
+import { MissionDetailResolver } from './_resolvers/mission-detail.resolver';
+import { MissionComponent } from './missions/mission/mission.component';
+import { MissionAssessmentInsightsComponent } from './missions/mission-assessment-insights/mission-assessment-insights.component';
+import { MissionProjectLifecycleComponent } from './missions/mission-project-lifecycle/mission-project-lifecycle.component';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -23,8 +30,34 @@ export const appRoutes: Routes = [
         children: [
             {path: 'members', component: MemberListComponent,
                 resolve: {users: MemberListResolver}},
+            {
+                path: 'missions',
+                component: MissionListComponent,
+                resolve: { missions: MissionListResolver }
+            },
+            {
+                path: 'mission',
+                component: MissionComponent,
+                children: [
+                    {
+                        path: ':id',
+                        component: MissionDetailComponent,
+                        resolve: {mission: MissionDetailResolver}
+                    },
+                    {
+                        path: ':id/assessment',
+                        component: MissionAssessmentInsightsComponent
+                    },
+                    {
+                        path: ':id/projectlifecycle',
+                        component: MissionProjectLifecycleComponent
+                    }
+                ]
+            },
             {path: 'members/:id', component: MemberDetailComponent,
                 resolve: {user: MemberDetailResolver}},
+            // {path: 'missions/:id', component: MissionComponent,
+            //     resolve: {mission: MissionDetailResolver}},
             {path: 'member/edit', component: MemberEditComponent,
                 resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},

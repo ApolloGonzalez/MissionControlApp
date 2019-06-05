@@ -5,9 +5,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using DatingApp.API.Data;
-using DatingApp.API.Dtos;
-using DatingApp.API.Models;
+using MissionControlApp.API.Data;
+using MissionControlApp.API.Dtos;
+using MissionControlApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DatingApp.API.Controllers
+namespace MissionControlApp.API.Controllers
 {
     [AllowAnonymous]
     [Route("api/[controller]")]
@@ -59,6 +59,9 @@ namespace DatingApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+
+            //throw new Exception("Computer says no");
+
             var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
 
             var result = await _signInManager

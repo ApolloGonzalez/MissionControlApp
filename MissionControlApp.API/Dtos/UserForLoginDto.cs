@@ -1,4 +1,4 @@
-namespace DatingApp.API.Dtos
+namespace MissionControlApp.API.Dtos
 {
     public class UserForLoginDto
     {

@@ -1,11 +1,11 @@
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using DatingApp.API.Data;
+using MissionControlApp.API.Data;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DatingApp.API.Helpers
+namespace MissionControlApp.API.Helpers
 {
     public class LogUserActivity : IAsyncActionFilter
     {
@@ -15,7 +15,7 @@ namespace DatingApp.API.Helpers
 
             var userId = int.Parse(resultContext.HttpContext.User
                 .FindFirst(ClaimTypes.NameIdentifier).Value);
-            var repo = resultContext.HttpContext.RequestServices.GetService<IDatingRepository>();
+            var repo = resultContext.HttpContext.RequestServices.GetService<IMissionControlRepository>();
             var user = await repo.GetUser(userId, true);
             user.LastActive = DateTime.Now;
             await repo.SaveAll();

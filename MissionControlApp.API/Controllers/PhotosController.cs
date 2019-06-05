@@ -4,26 +4,26 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using DatingApp.API.Data;
-using DatingApp.API.Dtos;
-using DatingApp.API.Helpers;
-using DatingApp.API.Models;
+using MissionControlApp.API.Data;
+using MissionControlApp.API.Dtos;
+using MissionControlApp.API.Helpers;
+using MissionControlApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace DatingApp.API.Controllers
+namespace MissionControlApp.API.Controllers
 {
     [Route("api/users/{userId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
-        private readonly IDatingRepository _repo;
+        private readonly IMissionControlRepository _repo;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
 
-        public PhotosController(IDatingRepository repo, IMapper mapper,
+        public PhotosController(IMissionControlRepository repo, IMapper mapper,
             IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _cloudinaryConfig = cloudinaryConfig;

@@ -5,9 +5,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using DatingApp.API.Data;
-using DatingApp.API.Helpers;
-using DatingApp.API.Models;
+using MissionControlApp.API.Data;
+using MissionControlApp.API.Helpers;
+using MissionControlApp.API.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +26,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DatingApp.API
+namespace MissionControlApp.API
 {
     public class Startup
     {
@@ -40,7 +40,8 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             IdentityBuilder builder = services.AddIdentityCore<User>(opt =>
             {
@@ -94,8 +95,7 @@ namespace DatingApp.API
             Mapper.Reset();
             services.AddAutoMapper();
             services.AddTransient<Seed>();
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IDatingRepository, DatingRepository>();
+            services.AddScoped<IMissionControlRepository, MissionControlRepository>();
             services.AddScoped<LogUserActivity>();
         }
 

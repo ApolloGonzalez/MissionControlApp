@@ -1,4 +1,4 @@
-namespace DatingApp.API.Helpers
+namespace MissionControlApp.API.Helpers
 {
     public class UserParams
     {

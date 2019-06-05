@@ -1,9 +1,9 @@
-using DatingApp.API.Models;
+using MissionControlApp.API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatingApp.API.Data
+namespace MissionControlApp.API.Data
 {
     public class DataContext : IdentityDbContext<User, Role, int, 
         IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>, 
@@ -11,10 +11,15 @@ namespace DatingApp.API.Data
     {
         public DataContext(DbContextOptions<DataContext>  options) : base (options) {}
 
-        public DbSet<Value> Values { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Mission> Missions { get; set; }
+        public DbSet<MissionAccelerator> MissionAccelerators { get; set; }
+        public DbSet<Accelerator> Accelerators { get; set; }
+        public DbSet<BusinessFunction> BusinessFunctions { get; set; }
+        public DbSet<Industry> Industries { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,6 +39,43 @@ namespace DatingApp.API.Data
                     .HasForeignKey(ur => ur.UserId)
                     .IsRequired();
             });
+
+           /*  builder.Entity<MissionAccelerator>().HasKey(ma => new {ma.MissionId, ma.AcceleratorId});
+
+            builder.Entity<MissionAccelerator>()
+                .HasOne(ma => ma.Accelerator)
+                .WithMany(ma => ma.MissionAccelerators)
+                .HasForeignKey(ma => ma.AcceleratorId)
+                .OnDelete(DeleteBehavior.SetNull);
+                
+            builder.Entity<MissionAccelerator>()
+                .HasOne(ma => ma.Mission)
+                .WithMany(a => a.MissionAccelerators)
+                .HasForeignKey(ma => ma.MissionId);  */
+
+             builder.Entity<MissionAccelerator>()
+                .HasOne(ma => ma.Mission)
+                .WithMany(ma => ma.MissionAccelerators)
+                .HasForeignKey(ma => ma.MissionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+           /*  builder.Entity<MissionAccelerator>()
+                .HasOne(ma => ma.Accelerator)
+                .WithOne(m => m.MissionAccelerator)
+                .HasForeignKey<MissionAccelerator>(ma => ma.AcceleratorId)
+                .OnDelete(DeleteBehavior.Restrict); 
+ */
+            /*  builder.Entity<Mission>()
+                .HasOne(b => b.BusinessFunction)
+                .WithOne(m => m.Mission)
+                .HasForeignKey<Mission>(m => m.BusinessFunctionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Mission>()
+                .HasOne(i => i.Industry)
+                .WithOne(m => m.Mission)
+                .HasForeignKey<Mission>(m => m.IndustryId)
+                .OnDelete(DeleteBehavior.Restrict);    */              
 
             builder.Entity<Like>()
                 .HasKey(k => new {k.LikerId, k.LikeeId});

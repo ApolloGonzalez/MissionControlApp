@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using DatingApp.API.Data;
-using DatingApp.API.Dtos;
-using DatingApp.API.Helpers;
-using DatingApp.API.Models;
+using MissionControlApp.API.Data;
+using MissionControlApp.API.Dtos;
+using MissionControlApp.API.Helpers;
+using MissionControlApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DatingApp.API.Controllers
+namespace MissionControlApp.API.Controllers
 {
     [ServiceFilter(typeof(LogUserActivity))]
     [Route("api/users/{userId}/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        private readonly IDatingRepository _repo;
+        private readonly IMissionControlRepository _repo;
         private readonly IMapper _mapper;
-        public MessagesController(IDatingRepository repo, IMapper mapper)
+        public MessagesController(IMissionControlRepository repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;

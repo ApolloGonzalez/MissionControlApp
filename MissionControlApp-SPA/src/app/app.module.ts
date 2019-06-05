@@ -39,6 +39,17 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { AdminService } from './_services/admin.service';
 import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
+import { MissionCreateComponent } from './missions/mission-create/mission-create.component';
+import { MissionListResolver } from './_resolvers/mission-list.resolver';
+import { MissionListComponent } from './missions/mission-list/mission-list.component';
+import { MissionService } from './_services/mission.service';
+import { MissionCardComponent } from './missions/mission-card/mission-card.component';
+import { MissionDetailComponent } from './missions/mission-detail/mission-detail.component';
+import { MissionDetailResolver } from './_resolvers/mission-detail.resolver';
+import { MissionComponent } from './missions/mission/mission.component';
+import { MissionNavComponent } from './missions/mission-nav/mission-nav.component';
+import { MissionAssessmentInsightsComponent } from './missions/mission-assessment-insights/mission-assessment-insights.component';
+import { MissionProjectLifecycleComponent } from './missions/mission-project-lifecycle/mission-project-lifecycle.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -56,6 +67,14 @@ export function tokenGetter() {
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
+    MissionComponent,
+    MissionCreateComponent,
+    MissionListComponent,
+    MissionCardComponent,
+    MissionDetailComponent,
+    MissionNavComponent,
+    MissionAssessmentInsightsComponent,
+    MissionProjectLifecycleComponent,
     PhotoEditorComponent,
     TimeAgoPipe,
     MemberMessagesComponent,
@@ -93,12 +112,15 @@ export function tokenGetter() {
       AlertifyService,
       AuthGuard,
       UserService,
+      MissionService,
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
       PreventUnsavedChanges,
       ListsResolver,
       MessagesResolver,
+      MissionListResolver,
+      MissionDetailResolver,
       AdminService
     ],
   entryComponents: [

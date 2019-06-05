@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using DatingApp.API.Data;
-using DatingApp.API.Dtos;
-using DatingApp.API.Helpers;
-using DatingApp.API.Models;
+using MissionControlApp.API.Data;
+using MissionControlApp.API.Dtos;
+using MissionControlApp.API.Helpers;
+using MissionControlApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DatingApp.API.Controllers
+namespace MissionControlApp.API.Controllers
 {
     [ServiceFilter(typeof(LogUserActivity))]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IDatingRepository _repo;
+        private readonly IMissionControlRepository _repo;
         private readonly IMapper _mapper;
 
-        public UsersController(IDatingRepository repo, IMapper mapper)
+        public UsersController(IMissionControlRepository repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;
@@ -75,7 +75,7 @@ namespace DatingApp.API.Controllers
             if (await _repo.SaveAll())
                 return NoContent();
 
-            throw new Exception($"Updating user {id} failed on save");
+            throw new Exception($"UpMissionControl user {id} failed on save");
         }
 
         [HttpPost("{id}/like/{recipientId}")]

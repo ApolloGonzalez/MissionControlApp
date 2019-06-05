@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace DatingApp.API.Models
+namespace MissionControlApp.API.Models
 {
     public class User : IdentityUser<int>
     {
@@ -18,6 +18,7 @@ namespace DatingApp.API.Models
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Mission> Missions { get; set; }
         public ICollection<Like> Likers { get; set; }
         public ICollection<Like> Likees { get; set; }
         public ICollection<Message> MessagesSent { get; set; }

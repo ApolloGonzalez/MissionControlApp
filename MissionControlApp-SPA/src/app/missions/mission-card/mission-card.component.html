@@ -1,0 +1,28 @@
+<!-- <div class="card mb-4">
+  <div class="card-img-wrapper">
+      <i class="fa fa-space-shuttle fa-lg"></i>
+    </div>
+    <div class="card-body p-1">
+      <h6 class="card-title text-center mb-1">
+        {{mission.missionName | titlecase}}, {{mission.timeFrame}}
+      </h6>
+      <p class="card-text text-muted text-center">{{mission.businessFunctionAlias}}</p>
+    </div>
+</div> -->
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">
+      <i class="fa fa-space-shuttle" style="color: #083f86;"></i>
+      <a [routerLink]="['../mission/' + mission.missionId]">
+        {{mission.missionName | titlecase}}
+      </a>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">created: {{mission.dateCreated | timeAgo}} | timeframe: {{mission.timeFrame}}</h6>
+    <p class="card-text">{{mission.challenge}}</p>
+    <ul class="fa-ul ml-0 mb-0">
+      <li><i class="fa fa-check-circle-o" style="color: #083f86;"></i> Experiments: 30</li>
+      <li><i class="fa fa-check-circle-o" style="color: #083f86;"></i> Models: 20</li>
+    </ul>
+  </div>
+</div>

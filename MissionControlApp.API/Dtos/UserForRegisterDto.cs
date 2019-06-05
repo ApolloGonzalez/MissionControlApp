@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DatingApp.API.Dtos
+namespace MissionControlApp.API.Dtos
 {
     public class UserForRegisterDto
     {

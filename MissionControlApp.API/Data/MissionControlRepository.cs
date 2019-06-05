@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DatingApp.API.Helpers;
-using DatingApp.API.Models;
+using MissionControlApp.API.Helpers;
+using MissionControlApp.API.Models;
 using Microsoft.EntityFrameworkCore;
+using MissionControlApp.API.Dtos;
 
-namespace DatingApp.API.Data
+namespace MissionControlApp.API.Data
 {
-    public class DatingRepository : IDatingRepository
+    public class MissionControlRepository : IMissionControlRepository
     {
         private readonly DataContext _context;
-        public DatingRepository(DataContext context)
+        public MissionControlRepository(DataContext context)
         {
             _context = context;
         }
@@ -23,6 +24,52 @@ namespace DatingApp.API.Data
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
+        }
+
+        public async Task<Industry> GetIndustry(int industryId)
+        {
+            return await _context.Industries.FirstOrDefaultAsync(i => i.Id == industryId);
+        }
+
+        public async Task<IEnumerable<Industry>> GetIndustries()
+        {
+            return await _context.Industries
+                .Where(i => i.Active == true).ToListAsync();
+        }
+
+        public async Task<BusinessFunction> GetBusinessFunction(int businessFunctionId)
+        {
+            return await _context.BusinessFunctions.FirstOrDefaultAsync(b => b.Id == businessFunctionId);
+        }
+
+        public async Task<IEnumerable<BusinessFunction>> GetBusinessFunctions()
+        {
+            return await _context.BusinessFunctions
+                .Where(b => b.Active == true).ToListAsync();
+        }
+
+        public async Task<Mission> GetMission(int userId, int missionId)
+        {
+            return await _context.Missions
+                .Include(u => u.User)
+                .Include(b => b.BusinessFunction)
+                .Include(i => i.Industry)
+                .Include(ma => ma.MissionAccelerators).ThenInclude(a => a.Accelerator)
+                .FirstOrDefaultAsync(i => i.Id == missionId && i.UserId == userId);
+        }
+
+        public async Task<PagedList<Mission>> GetMissions(MissionParams missionParams)
+        {
+            var missions = _context.Missions
+                .Include(u => u.User)
+                .Include(b => b.BusinessFunction)
+                .Include(i => i.Industry)
+                .Include(ma => ma.MissionAccelerators)
+                .ThenInclude(a => a.Accelerator)
+                .Where(mu => mu.UserId == missionParams.UserId)
+                .AsQueryable();
+
+            return await PagedList<Mission>.CreateAsync(missions, missionParams.PageNumber, missionParams.PageSize);
         }
 
         public async Task<Like> GetLike(int userId, int recipientId)

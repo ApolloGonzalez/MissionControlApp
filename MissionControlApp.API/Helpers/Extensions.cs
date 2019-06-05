@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace DatingApp.API.Helpers
+namespace MissionControlApp.API.Helpers
 {
     public static class Extensions
     {

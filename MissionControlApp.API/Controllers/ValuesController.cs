@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DatingApp.API.Data;
+using MissionControlApp.API.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatingApp.API.Controllers
+namespace MissionControlApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    /*[Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
@@ -57,4 +57,5 @@ namespace DatingApp.API.Controllers
         {
         }
     }
+     */
 }

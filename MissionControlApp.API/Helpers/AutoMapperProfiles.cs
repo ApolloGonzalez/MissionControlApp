@@ -1,9 +1,9 @@
 using System.Linq;
 using AutoMapper;
-using DatingApp.API.Dtos;
-using DatingApp.API.Models;
+using MissionControlApp.API.Dtos;
+using MissionControlApp.API.Models;
 
-namespace DatingApp.API.Helpers
+namespace MissionControlApp.API.Helpers
 {
     public class AutoMapperProfiles : Profile
     {
@@ -23,6 +23,10 @@ namespace DatingApp.API.Helpers
                 .ForMember(dest => dest.Age, opt => {
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
+            CreateMap<Accelerator, MissionAcceleratorToReturnDto>();
+            CreateMap<Mission, MissionToReturnDto>();
+            CreateMap<MissionAccelerator, MissionAcceleratorToReturnDto>();
+            CreateMap<MissionForCreateDto, Mission>();
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<UserForUpdateDto, User>();
             CreateMap<Photo, PhotoForReturnDto>();

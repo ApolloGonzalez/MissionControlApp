@@ -1,4 +1,4 @@
-namespace DatingApp.API.Models
+namespace MissionControlApp.API.Models
 {
     public class Like
     {
