@@ -1,3 +1,175 @@
-<p>
-  mission-create works!
-</p>
+<div class="container" style="max-width: 50%;">
+  <div class="card bg-light mt-2 mb-3">
+    <div class="card-header" style="clear: both; line-height: 0; padding-top: 20px; padding-bottom: 0px;">
+      <p class="float-left text-capitalize" style="font-size:x-large;">
+        <i class="fa fa-plus" style="color: #083f86;"></i>            
+        Create Mission
+      </p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="missionForm" (ngSubmit)="createMission()">
+          <div class="row">
+            <div class="col-sm-12">
+                <span class="fa-stack fa-2x fa-lg mb-1">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-stack-1x fa-inverse">
+                    <span 
+                      style="font-size: .5em; 
+                        text-align: center;
+                        font-weight: bold;
+                        font-family:Arial, Helvetica, sans-serif;  
+                        display: block;">Step 1
+                    </span>
+                  </i>
+                </span>
+                <span style="font-size: 1.5em; font-weight: bold;">Mission On-Boarding</span>
+              <hr class="mt-0">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="missionname" placeholder="Mission Name">
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" 
+                  formControlName="challenge" 
+                  rows="2" 
+                  placeholder="Challenge">
+                </textarea>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" 
+                  formControlName="desiredoutcome" 
+                  rows="2" 
+                  placeholder="Desired Outcome">
+                </textarea>
+              </div>
+              <div class="form-group">
+                <h4 class="control-label" style="margin-right:10px">Your Timeframe</h4>
+                <label class="radio-inline">
+                  <input class="mr-1" type="radio" value="1" formControlName="timeframe">Now
+                </label>
+                <label class="radio-inline ml-3">
+                  <input class="mr-2" type="radio" value="30" formControlName="timeframe">30 days
+                </label>
+                <label class="radio-inline ml-3">
+                    <input class="mr-2" type="radio" value="60" formControlName="timeframe">60 days
+                </label>                
+                <label class="radio-inline ml-3">
+                    <input class="mr-2" type="radio" value="90" formControlName="timeframe">90 days
+                </label>
+                <label class="radio-inline ml-3">
+                    <input class="mr-2" type="radio" value="1000" formControlName="timeframe">> 90 days
+                </label>                                
+              </div>
+              <div class="form-group">
+                <h4 class="control-label" style="margin-right:10px">Your Current Data/AI Platform</h4>
+                <label formArrayName="missionplatforms" 
+                  class="checkbox-inline mr-3" 
+                  *ngFor="let platform of missionForm.controls['missionplatforms'].controls; let i = index">
+                  <input type="checkbox" 
+                    value="{{platforms[i].id}}" 
+                    [formControlName]="i"> 
+                    {{platforms[i].platformAlias}} 
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <h4 class="control-label" style="margin-right:10px">Mission Public or Private?</h4>
+                <label class="radio-inline">
+                  <input class="mr-1" type="radio" value="true" formControlName="public">Public
+                </label>
+                <label class="radio-inline ml-3">
+                  <input class="mr-2" type="radio" value="false" formControlName="public">Private
+                </label>                          
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-12">
+                  <span class="fa-stack fa-2x fa-lg mb-1">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-stack-1x fa-inverse">
+                        <span 
+                          style="font-size: .5em; 
+                            text-align: center;
+                            font-weight: bold;
+                            font-family:Arial, Helvetica, sans-serif;  
+                            display: block;">Step 2
+                        </span>
+                      </i>
+                    </span>
+                    <span style="font-size: 1.5em; font-weight: bold;">Mission On-Boarding PoC</span>
+                <hr class="mt-0">
+              </div>
+            </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <select formControlName="industryid"
+                  id="industryid" 
+                  #industry
+                  (change)="onOptionIndustrySelected(industry.value)"
+                  class="form-control">
+                  <option value="1000">
+                    Select Industry
+                  </option>
+                  <option *ngFor="let industry of industries; let i = index" 
+                    [value]="industries[i].id">
+                    {{industries[i].industryName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <select formControlName="businessfunctionid"
+                    id="businessfunctionid" 
+                    #businessfunction
+                    (change)="onOptionBusinessFunctionSelected(businessfunction.value)"
+                    class="form-control">
+                    <option value="1000">
+                      Select Business Function
+                    </option>
+                    <option *ngFor="let businessFunction of businessFunctions; let i = index" 
+                      [value]="businessFunctions[i].id">
+                      {{businessFunctions[i].businessFunctionName}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group p-2" style="border: 2px solid #e2e2e2dc; border-radius: 5px;" *ngIf="showAccelerators">
+                <h4 class="control-label" style="margin-right:10px">AI Accelerators</h4>
+                <label formArrayName="missionaccelerators" 
+                  class="checkbox-inline mr-3" 
+                  *ngFor="let accelerator of missionForm.controls['missionaccelerators'].controls; let i = index">
+                  <input type="checkbox" 
+                    value="{{accelerators[i].id}}"
+                    [formControlName]="i"> 
+                    {{accelerators[i].acceleratorName}} 
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group text-center">
+                <button class="btn btn-success" [disabled]="!missionForm.valid" type="submit">Create</button>
+                <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+              </div>
+          </div>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- <p>Form Value: {{missionForm.value | json}}</p> -->
+<!-- <p>Form Status: {{missionForm.status | json}}</p> -->

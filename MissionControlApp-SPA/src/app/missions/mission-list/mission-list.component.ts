@@ -19,7 +19,7 @@ export class MissionListComponent implements OnInit {
   missionParams: any = {};
   pagination: Pagination;
 
-  constructor(private authService: AuthService, private missionService: MissionService, 
+  constructor(private authService: AuthService, private missionService: MissionService,
     private alertify: AlertifyService,
     private route: ActivatedRoute) { }
 

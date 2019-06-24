@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, 
+    ButtonsModule, TooltipModule, ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -50,6 +51,7 @@ import { MissionComponent } from './missions/mission/mission.component';
 import { MissionNavComponent } from './missions/mission-nav/mission-nav.component';
 import { MissionAssessmentInsightsComponent } from './missions/mission-assessment-insights/mission-assessment-insights.component';
 import { MissionProjectLifecycleComponent } from './missions/mission-project-lifecycle/mission-project-lifecycle.component';
+import { MissionCreateResolver } from './_resolvers/mission-create.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -96,6 +98,7 @@ export function tokenGetter() {
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     NgxGalleryModule,
     FileUploadModule,
     JwtModule.forRoot({
@@ -121,6 +124,7 @@ export function tokenGetter() {
       MessagesResolver,
       MissionListResolver,
       MissionDetailResolver,
+      MissionCreateResolver,
       AdminService
     ],
   entryComponents: [

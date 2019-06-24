@@ -20,6 +20,8 @@ import { MissionDetailResolver } from './_resolvers/mission-detail.resolver';
 import { MissionComponent } from './missions/mission/mission.component';
 import { MissionAssessmentInsightsComponent } from './missions/mission-assessment-insights/mission-assessment-insights.component';
 import { MissionProjectLifecycleComponent } from './missions/mission-project-lifecycle/mission-project-lifecycle.component';
+import { MissionCreateComponent } from './missions/mission-create/mission-create.component';
+import { MissionCreateResolver } from './_resolvers/mission-create.resolver';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -29,35 +31,39 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'members', component: MemberListComponent,
-                resolve: {users: MemberListResolver}},
+                resolve: {users: MemberListResolver}
+            },
+            {
+                path: 'missions/create',
+                component: MissionCreateComponent,
+                resolve: { missioncreateformlists: MissionCreateResolver }
+            },
             {
                 path: 'missions',
                 component: MissionListComponent,
                 resolve: { missions: MissionListResolver }
             },
             {
-                path: 'mission',
+                path: 'mission/:id',
                 component: MissionComponent,
                 children: [
                     {
-                        path: ':id',
+                        path: '',
                         component: MissionDetailComponent,
                         resolve: {mission: MissionDetailResolver}
                     },
                     {
-                        path: ':id/assessment',
+                        path: 'assessment',
                         component: MissionAssessmentInsightsComponent
                     },
                     {
-                        path: ':id/projectlifecycle',
+                        path: ':projectlifecycle',
                         component: MissionProjectLifecycleComponent
                     }
                 ]
             },
             {path: 'members/:id', component: MemberDetailComponent,
                 resolve: {user: MemberDetailResolver}},
-            // {path: 'missions/:id', component: MissionComponent,
-            //     resolve: {mission: MissionDetailResolver}},
             {path: 'member/edit', component: MemberEditComponent,
                 resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},

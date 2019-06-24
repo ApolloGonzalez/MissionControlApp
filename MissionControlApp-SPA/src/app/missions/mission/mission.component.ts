@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mission',
@@ -8,9 +8,14 @@ import { Router } from '@angular/router';
 })
 export class MissionComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  missionId: any;
+
+  constructor(private route: ActivatedRoute) {
+    this.missionId = this.route.snapshot.paramMap.get( 'id' );
+   }
 
   ngOnInit() {
+
   }
 
 }

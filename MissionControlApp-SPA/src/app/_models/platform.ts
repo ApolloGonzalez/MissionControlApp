@@ -1,9 +1,10 @@
-export interface Accelerator {
+export interface Platform {
     id: number;
     missionId: number;
-    acceleratorName: string;
+    platformName: string;
+    platformAlias: string;
     description: string;
-    modelType: string;
+    type: string;
     dateCreated: Date;
     active: boolean;
 }

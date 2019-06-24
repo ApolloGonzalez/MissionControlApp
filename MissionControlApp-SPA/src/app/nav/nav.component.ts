@@ -44,4 +44,7 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  createMission() {
+    this.router.navigate(['/missions/create']);
+  }
 }

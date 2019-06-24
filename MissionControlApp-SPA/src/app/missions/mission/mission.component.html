@@ -15,16 +15,20 @@
       <div>
         <div>
           <div >
-            <app-mission-nav></app-mission-nav>
+            <app-mission-nav [missionId]="missionId"></app-mission-nav>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-8">
       <div>
-        <router-outlet class="content"></router-outlet> 
+        <router-outlet></router-outlet> 
       </div>
     </div>
-      
+    <div class="col-sm-2">
+      <div>
+         
+      </div>
+    </div>      
   </div>
 </div>

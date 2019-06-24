@@ -8,6 +8,7 @@ namespace MissionControlApp.API.Dtos
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string KnownAs { get; set; }
         public int MissionId { get; set; }
         public string MissionName { get; set; }
         public int IndustryId { get; set; }
@@ -18,8 +19,10 @@ namespace MissionControlApp.API.Dtos
         public string DesiredOutcome { get; set; }
         public int TimeFrame { get; set; }
         public ICollection<MissionAcceleratorToReturnDto> Accelerators { get; set; }
+        public ICollection<MissionPlatformToReturnDto> Platforms { get; set; }
         public DateTime? DateCreated { get; set; }
         public bool Active { get; set; }
+        public bool Public { get; set; }
 
         public MissionToReturnDto()
         {

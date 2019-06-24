@@ -37,6 +37,12 @@ namespace MissionControlApp.API.Data
                 .Where(i => i.Active == true).ToListAsync();
         }
 
+        public async Task<IEnumerable<Platform>> GetPlatforms()
+        {
+            return await _context.Platforms
+                .Where(i => i.Active == true).ToListAsync();
+        }
+
         public async Task<BusinessFunction> GetBusinessFunction(int businessFunctionId)
         {
             return await _context.BusinessFunctions.FirstOrDefaultAsync(b => b.Id == businessFunctionId);
@@ -48,13 +54,23 @@ namespace MissionControlApp.API.Data
                 .Where(b => b.Active == true).ToListAsync();
         }
 
+        public async Task<IEnumerable<Accelerator>> GetAcceleratorsByBusinessFunctionAndIndustry(int businessFunctionId, int industryId)
+        {
+            return await _context.Accelerators
+                .Where(b => b.BusinessFunctionId == businessFunctionId || b.IndustryId == industryId && b.Active == true)
+                .ToListAsync();   
+        }
+
         public async Task<Mission> GetMission(int userId, int missionId)
         {
             return await _context.Missions
                 .Include(u => u.User)
                 .Include(b => b.BusinessFunction)
                 .Include(i => i.Industry)
-                .Include(ma => ma.MissionAccelerators).ThenInclude(a => a.Accelerator)
+                .Include(ma => ma.MissionAccelerators)
+                .ThenInclude(a => a.Accelerator)
+                .Include(mp => mp.MissionPlatforms)
+                .ThenInclude(p => p.Platform)
                 .FirstOrDefaultAsync(i => i.Id == missionId && i.UserId == userId);
         }
 
@@ -66,6 +82,8 @@ namespace MissionControlApp.API.Data
                 .Include(i => i.Industry)
                 .Include(ma => ma.MissionAccelerators)
                 .ThenInclude(a => a.Accelerator)
+                .Include(mp => mp.MissionPlatforms)
+                .ThenInclude(p => p.Platform)
                 .Where(mu => mu.UserId == missionParams.UserId)
                 .AsQueryable();
 

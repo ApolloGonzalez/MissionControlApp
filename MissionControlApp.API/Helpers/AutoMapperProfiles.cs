@@ -24,6 +24,9 @@ namespace MissionControlApp.API.Helpers
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
             CreateMap<Accelerator, MissionAcceleratorToReturnDto>();
+            CreateMap<Platform, PlatformToReturnDto>();
+            CreateMap<BusinessFunction, BusinessFunctionToReturnDto>();
+            CreateMap<Industry, IndustryToReturnDto>();
             CreateMap<Mission, MissionToReturnDto>();
             CreateMap<MissionAccelerator, MissionAcceleratorToReturnDto>();
             CreateMap<MissionForCreateDto, Mission>();

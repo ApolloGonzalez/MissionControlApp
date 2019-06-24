@@ -18,6 +18,8 @@ namespace MissionControlApp.API.Models
         public string DesiredOutcome { get; set; }
         public int TimeFrame { get; set; }
         public ICollection<MissionAccelerator> MissionAccelerators { get; set; }
+        public ICollection<MissionPlatform> MissionPlatforms { get; set; }
+        public bool Public { get; set; }
         public DateTime? DateCreated { get; set; }
         public bool Active { get; set; }
         public Mission()

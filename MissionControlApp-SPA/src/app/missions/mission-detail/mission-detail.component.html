@@ -1,19 +1,58 @@
-<div class="row">
-  <div class="col-sm-3">
-    <h3>Mission Name</h3>
-  </div>
-  <div class="col-sm-9">
-    <div class="align-items-sm-end">
-      <h5>Create by: Apollo Gonzalez</h5>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card bg-light mt-2 mb-3" style="max-width: 100%;">
+        <div class="card-header" style="clear: both; line-height: 0; padding-top: 15px; padding-bottom: 15px;">
+          <div class="float-left text-capitalize" style="font-size:x-large;">
+            <i class="fa fa-rocket" style="color: #083f86;"></i>            
+            {{mission.missionName}}
+          </div>
+          <div class="float-right" style="padding-top: 5px;">
+            <b>Created by:</b> {{mission.knownAs}} - {{ mission.dateCreated | timeAgo }}
+            <div class="mt-3">
+                <b>Timeframe:</b> {{mission.timeFrame}} - day(s)
+              </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row mt-2">
+            <div class="col-sm-12">
+              <h4 class="card-title mb-0">Challenge</h4>
+              <p class="card-text jumbotron mt-0" style="padding: 20px;" >{{mission.challenge}}</p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-12">
+              <h4 class="card-title mb-0">Desired Outcome</h4>
+              <p class="card-text jumbotron mt-0" style="padding: 20px;">{{mission.desiredOutcome}}</p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-6">
+              <h4 class="card-title mb-0">Business Function</h4>
+              <p class="card-text jumbotron mt-0" style="padding: 15px;">{{mission.businessFunctionAlias}}</p>
+            </div>
+            <div class="col-sm-6">
+              <h4 class="card-title mb-0">Industry</h4>
+              <p class="card-text jumbotron mt-0" style="padding: 15px;" >{{mission.industryAlias}}</p>          
+            </div>
+          </div>
+          
+          <h4 class="card-title">Accelerators</h4>
+          <span class="card-text badge badge-success mr-1" 
+            style="font-size: small;" 
+            *ngFor="let accelerator of mission.accelerators" 
+            tooltip="{{accelerator.description}}">
+            {{accelerator.acceleratorName}}
+          </span>
+          <h4 class="card-title mt-3">Platforms</h4>
+          <span class="card-text badge badge-primary mr-1" 
+            style="font-size: small;" 
+            *ngFor="let platform of mission.platforms" 
+            tooltip="{{platform.description}}">
+            {{platform.platformAlias}} 
+          </span>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<hr class="my-4">
-<div class="row">
-  <div class="col-sm-12">
-    <div class="">
-      <strong>Information:</strong> You have made changes. Any unsaved changes
-      will be lost!
-    </div>
-  </div>
-</div>
+  

@@ -38,7 +38,8 @@ namespace MissionControlApp.API.Controllers
                 BusinessFunctionId = missionForCreateDto.BusinessFunctionId,
                 DesiredOutcome = missionForCreateDto.DesiredOutcome,
                 Challenge = missionForCreateDto.Challenge,
-                TimeFrame = missionForCreateDto.TimeFrame
+                TimeFrame = missionForCreateDto.TimeFrame,
+                Public = missionForCreateDto.Public
             };
 
             _repo.Add(mission);
@@ -51,6 +52,16 @@ namespace MissionControlApp.API.Controllers
                     missionAccelerator.AcceleratorId = ma.AcceleratorId;
                     missionAccelerator.MissionId = mission.Id;
                     _repo.Add(missionAccelerator);
+                    
+                    await _repo.SaveAll();
+                }
+
+                foreach(MissionPlatform mp in missionForCreateDto.MissionPlatforms)
+                {
+                    var missionPlatform = new MissionPlatform();
+                    missionPlatform.PlatformId = mp.PlatformId;
+                    missionPlatform.MissionId = mission.Id;
+                    _repo.Add(missionPlatform);
                     
                     await _repo.SaveAll();
                 }
@@ -70,6 +81,7 @@ namespace MissionControlApp.API.Controllers
             {
                 UserId = mission.UserId,
                 UserName = mission.User.UserName,
+                KnownAs = mission.User.KnownAs,
                 MissionId = mission.Id,
                 MissionName = mission.MissionName,
                 IndustryId = mission.IndustryId,
@@ -88,10 +100,25 @@ namespace MissionControlApp.API.Controllers
                         AcceleratorName = accelerator.AcceleratorName,
                         ModelType = accelerator.ModelType,
                         DateCreated = accelerator.DateCreated,
+                        Description = accelerator.Description,
                         Active = accelerator.Active
                     }).ToList(),
+                    Platforms = 
+                        (from platform in mission.MissionPlatforms.Select(a => a.Platform).ToList() 
+                        select new MissionPlatformToReturnDto
+                        { 
+                            Id = platform.Id,
+                            MissionId = platform.Id,
+                            PlatformName = platform.PlatformName,
+                            PlatformAlias = platform.PlatformAlias,
+                            Description = platform.Description,
+                            Type = platform.Type,
+                            DateCreated = platform.DateCreated,
+                            Active = platform.Active
+                        }).ToList(),
                 DateCreated = mission.DateCreated,
-                Active = mission.Active
+                Active = mission.Active,
+                Public = mission.Public
             };
             return Ok(missionToReturn);
         }
@@ -109,6 +136,7 @@ namespace MissionControlApp.API.Controllers
                 {
                     UserId = mission.UserId,
                     UserName = mission.User.UserName,
+                    KnownAs = mission.User.KnownAs,
                     MissionId = mission.Id,
                     MissionName = mission.MissionName,
                     IndustryId = mission.IndustryId,
@@ -127,11 +155,26 @@ namespace MissionControlApp.API.Controllers
                             AcceleratorName = accelerator.AcceleratorName,
                             ModelType = accelerator.ModelType,
                             DateCreated = accelerator.DateCreated,
+                            Description = accelerator.Description,
                             Active = accelerator.Active
                         }).ToList(),
+                    Platforms = 
+                        (from platform in mission.MissionPlatforms.Select(a => a.Platform).ToList() 
+                        select new MissionPlatformToReturnDto
+                        { 
+                            Id = platform.Id,
+                            MissionId = platform.Id,
+                            PlatformName = platform.PlatformName,
+                            PlatformAlias = platform.PlatformAlias,
+                            Description = platform.Description,
+                            Type = platform.Type,
+                            DateCreated = platform.DateCreated,
+                            Active = platform.Active
+                        }).ToList(),                        
                     DateCreated = mission.DateCreated,
-                    Active = mission.Active
-                });
+                    Active = mission.Active,
+                    Public = mission.Public
+                }).OrderByDescending(cr => cr.DateCreated);
 
             Response.AddPagination(missions.CurrentPage, missions.PageSize,
                 missions.TotalCount, missions.TotalPages);
@@ -170,5 +213,51 @@ namespace MissionControlApp.API.Controllers
 
             return Ok(businessFunction);
         }
+
+        [HttpGet("platforms", Name = "GetPlatforms")]
+        public async Task<IActionResult> GetPlatforms()
+        {
+            var platforms = await _repo.GetPlatforms();
+
+            var platfomsToReturn = _mapper.Map<IEnumerable<PlatformToReturnDto>>(platforms);
+
+            return Ok(platfomsToReturn);
+        }
+
+        [HttpGet("missioncreateformlists", Name = "GetMissionCreateFormLists")]
+        public async Task<IActionResult> GetMissionCreateFormLists()
+        {
+            var businessFunctions = await _repo.GetBusinessFunctions();
+            var industries = await _repo.GetIndustries();
+            var platforms = await _repo.GetPlatforms();
+            
+            var businessFunctionsToReturn = _mapper
+                .Map<IEnumerable<BusinessFunctionToReturnDto>>(businessFunctions);
+            var industriesToReturn = _mapper
+                .Map<IEnumerable<IndustryToReturnDto>>(industries);
+            var platfomsToReturn = _mapper
+                .Map<IEnumerable<PlatformToReturnDto>>(platforms);
+
+            var missionCreateFormListsToReturn = new MissionCreateFormListsToReturnDto {
+                BusinessFunctions = businessFunctionsToReturn.ToList(),
+                Industries = industriesToReturn.ToList(),
+                Platforms = platfomsToReturn.ToList()
+            };
+
+            return Ok(missionCreateFormListsToReturn);
+        }
+
+        [HttpGet("businessfunction/{businessFunctionId}/industry/{industryId}", Name = "GetMissionCreateFormAccelerators")]
+        public async Task<IActionResult> GetMissionCreateFormAccelerators(int businessFunctionId, int industryId)
+        {
+            var accelerators = await _repo
+                .GetAcceleratorsByBusinessFunctionAndIndustry(businessFunctionId, industryId);
+             
+            var acceleratorsToReturn = _mapper
+                .Map<IEnumerable<AcceleratorToReturnDto>>(accelerators);
+
+            return Ok(acceleratorsToReturn);
+        }
+
     }
 }

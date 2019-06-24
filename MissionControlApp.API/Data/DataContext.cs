@@ -17,6 +17,8 @@ namespace MissionControlApp.API.Data
         public DbSet<Mission> Missions { get; set; }
         public DbSet<MissionAccelerator> MissionAccelerators { get; set; }
         public DbSet<Accelerator> Accelerators { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
+        public DbSet<MissionPlatform> MissionPlatforms { get; set; }
         public DbSet<BusinessFunction> BusinessFunctions { get; set; }
         public DbSet<Industry> Industries { get; set; }
 
@@ -53,11 +55,17 @@ namespace MissionControlApp.API.Data
                 .WithMany(a => a.MissionAccelerators)
                 .HasForeignKey(ma => ma.MissionId);  */
 
-             builder.Entity<MissionAccelerator>()
+            builder.Entity<MissionAccelerator>()
                 .HasOne(ma => ma.Mission)
                 .WithMany(ma => ma.MissionAccelerators)
                 .HasForeignKey(ma => ma.MissionId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<MissionPlatform>()
+                .HasOne(mp => mp.Mission)
+                .WithMany(mp => mp.MissionPlatforms)
+                .HasForeignKey(mp => mp.MissionId)
+                .OnDelete(DeleteBehavior.Restrict);                
 
            /*  builder.Entity<MissionAccelerator>()
                 .HasOne(ma => ma.Accelerator)

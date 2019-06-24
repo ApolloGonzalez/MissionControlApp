@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-mission-nav',
@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MissionNavComponent implements OnInit {
 
-  constructor() { }
+  @Input() missionId: any;
+
+  constructor( ) {
+
+  }
 
   ngOnInit() {
   }

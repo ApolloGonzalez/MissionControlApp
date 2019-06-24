@@ -20,8 +20,10 @@ namespace MissionControlApp.API.Data
         Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
         Task<Industry> GetIndustry(int industryId);
         Task<IEnumerable<Industry>> GetIndustries();
+        Task<IEnumerable<Platform>> GetPlatforms();
         Task<BusinessFunction> GetBusinessFunction(int businessFunctionId);
         Task<IEnumerable<BusinessFunction>> GetBusinessFunctions();
+        Task<IEnumerable<Accelerator>> GetAcceleratorsByBusinessFunctionAndIndustry(int businessFunctionId, int industryId);
         Task<Mission> GetMission(int userId, int missionId);
         Task<PagedList<Mission>> GetMissions(MissionParams missionParams);
     }

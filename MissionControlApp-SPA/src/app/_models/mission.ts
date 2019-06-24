@@ -1,9 +1,11 @@
 import { Accelerator } from './accelerator';
+import { Platform } from './platform';
 
 export interface Mission {
     missionId: number;
     userId: number;
-    username: string;
+    userName: string;
+    knownAs: string;
     missionName: string;
     industryAlias: string;
     businessFunctionAlias: string;
@@ -12,5 +14,7 @@ export interface Mission {
     timeFrame: number;
     dateCreated: Date;
     active: boolean;
-    // accelerators?: Accelerator[];
+    accelerators?: Accelerator[];
+    platforms?: Platform[];
+    public: boolean;
 }

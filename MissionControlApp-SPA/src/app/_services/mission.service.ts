@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Mission } from '../_models/mission';
+import { Platform } from '../_models/platform';
+import { MissionCreateFormLists } from '../_models/missioncreateformlists';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class MissionService {
 
   constructor(private http: HttpClient) {}
 
-  getMission(userId, id): Observable<Mission> {
+  getMission(userId: number, id: number): Observable<Mission> {
     return this.http.get<Mission>(this.baseUrl + 'users/' + userId + '/missions/' + id);
   }
 
@@ -46,5 +48,25 @@ export class MissionService {
           return paginatedResult;
         })
       );
+  }
+
+  getMissionCreateFormLists(userId: number): Observable<MissionCreateFormLists> {
+    return this.http
+      .get<MissionCreateFormLists>(this.baseUrl + 'users/' + userId + '/missions/missioncreateformlists');
+  }
+
+  getAcceleratorsByIndustryAndBusinessId(userId: number, businessFunctionId: number, industryId: number) {
+    return this.http
+      .get
+        (this.baseUrl + 'users/' + userId + '/missions/businessfunction/' + businessFunctionId + '/industry/' + industryId);
+  }
+
+  getPlatforms(userId: number): Observable<Platform> {
+    return this.http
+      .get<Platform>(this.baseUrl + 'users/' + userId + '/missions/platforms');
+  }
+
+  createMission(userId: number, mission: Mission) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/missions/createmission', mission);
   }
 }
