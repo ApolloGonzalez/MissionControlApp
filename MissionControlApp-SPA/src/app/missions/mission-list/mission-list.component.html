@@ -1,8 +1,4 @@
-<div class="text-center mt-3">
-  <h2>You have - {{pagination.totalItems}} Missions</h2>
-</div>
-
-<div class="container mt-3">
+<div class="container mt-4">
 
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadMissions()" novalidate>
       <!-- <div class="form-group">
@@ -21,6 +17,9 @@
       <button type="button" class="btn btn-info" (click)="resetFilters()" style="margin-left:10px">
           Reset Filter
       </button> -->
+      <div class="col">
+        <h2>You have - {{pagination.totalItems}} Missions</h2>
+      </div>
       <div class="col">
         <div class="btn-group float-right">
           <button type="button" name="orderBy" class="btn btn-primary"

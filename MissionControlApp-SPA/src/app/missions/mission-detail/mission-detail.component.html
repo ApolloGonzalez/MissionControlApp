@@ -13,40 +13,40 @@
               </div>
           </div>
         </div>
-        <div class="container">
+        <div class="container mb-3">
           <div class="row mt-2">
             <div class="col-sm-12">
               <h4 class="card-title mb-0">Challenge</h4>
-              <p class="card-text jumbotron mt-0" style="padding: 20px;" >{{mission.challenge}}</p>
+              <p class="card-text alert alert-light mt-0" style="padding: 20px;" >{{mission.challenge}}</p>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-sm-12">
               <h4 class="card-title mb-0">Desired Outcome</h4>
-              <p class="card-text jumbotron mt-0" style="padding: 20px;">{{mission.desiredOutcome}}</p>
+              <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{mission.desiredOutcome}}</p>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-sm-6">
               <h4 class="card-title mb-0">Business Function</h4>
-              <p class="card-text jumbotron mt-0" style="padding: 15px;">{{mission.businessFunctionAlias}}</p>
+              <p class="card-text alert alert-light mt-0" style="padding: 15px;">{{mission.businessFunctionAlias}}</p>
             </div>
             <div class="col-sm-6">
               <h4 class="card-title mb-0">Industry</h4>
-              <p class="card-text jumbotron mt-0" style="padding: 15px;" >{{mission.industryAlias}}</p>          
+              <p class="card-text alert alert-light mt-0" style="padding: 15px;" >{{mission.industryAlias}}</p>          
             </div>
           </div>
           
           <h4 class="card-title">Accelerators</h4>
-          <span class="card-text badge badge-success mr-1" 
-            style="font-size: small;" 
+          <span class="card-text alert alert-success mr-1" 
+            style="font-size: small; padding: 2px;" 
             *ngFor="let accelerator of mission.accelerators" 
             tooltip="{{accelerator.description}}">
             {{accelerator.acceleratorName}}
           </span>
-          <h4 class="card-title mt-3">Platforms</h4>
-          <span class="card-text badge badge-primary mr-1" 
-            style="font-size: small;" 
+          <h4 class="card-title mt-3">Your Current AI Platform(s)</h4>
+          <span class="card-text alert alert-info mr-1 mb-2" 
+            style="font-size: small; padding: 2px;" 
             *ngFor="let platform of mission.platforms" 
             tooltip="{{platform.description}}">
             {{platform.platformAlias}} 

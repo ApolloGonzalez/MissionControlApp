@@ -22,6 +22,8 @@ import { MissionAssessmentInsightsComponent } from './missions/mission-assessmen
 import { MissionProjectLifecycleComponent } from './missions/mission-project-lifecycle/mission-project-lifecycle.component';
 import { MissionCreateComponent } from './missions/mission-create/mission-create.component';
 import { MissionCreateResolver } from './_resolvers/mission-create.resolver';
+import { MissionTeamListComponent } from './missions/mission-team-list/mission-team-list.component';
+import { MissionTeamListResolver } from './_resolvers/mission-team-list.resolver';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -57,8 +59,13 @@ export const appRoutes: Routes = [
                         component: MissionAssessmentInsightsComponent
                     },
                     {
-                        path: ':projectlifecycle',
+                        path: 'projectlifecycle',
                         component: MissionProjectLifecycleComponent
+                    },
+                    {
+                        path: 'team',
+                        component: MissionTeamListComponent,
+                        resolve: {missionteammembers: MissionTeamListResolver}
                     }
                 ]
             },

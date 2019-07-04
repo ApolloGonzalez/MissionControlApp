@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card bg-light mt-2 mb-3" style="max-width: 100%;">
+      <div class="card-header" style="clear: both; line-height: 0; padding-top: 15px; padding-bottom: 15px;">
+        <div class="float-left text-capitalize" style="font-size:x-large;">
+          <i class="fa fa-users" style="color: #083f86;"></i>            
+          Your Mission Team
+        </div>
+      </div>
+      <div class="container">
+        <div class="row mt-2">
+          <div class="card-body" *ngIf="teamMembers?.length === 0">
+              Your Mission has not been assigned to a team yet. Your team members will show up soon.
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div *ngFor="let teamMember of teamMembers" class="col-lg-2 col-md-3 col-sm-6">
+            <app-mission-team-member-card [teamMember]="teamMember"></app-mission-team-member-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

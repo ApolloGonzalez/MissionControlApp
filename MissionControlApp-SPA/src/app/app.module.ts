@@ -52,6 +52,9 @@ import { MissionNavComponent } from './missions/mission-nav/mission-nav.componen
 import { MissionAssessmentInsightsComponent } from './missions/mission-assessment-insights/mission-assessment-insights.component';
 import { MissionProjectLifecycleComponent } from './missions/mission-project-lifecycle/mission-project-lifecycle.component';
 import { MissionCreateResolver } from './_resolvers/mission-create.resolver';
+import { MissionTeamListComponent } from './missions/mission-team-list/mission-team-list.component';
+import { MissionTeamListResolver } from './_resolvers/mission-team-list.resolver';
+import { MissionTeamMemberCardComponent } from './missions/mission-team-member-card/mission-team-member-card.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -77,6 +80,8 @@ export function tokenGetter() {
     MissionNavComponent,
     MissionAssessmentInsightsComponent,
     MissionProjectLifecycleComponent,
+    MissionTeamListComponent,
+    MissionTeamMemberCardComponent,
     PhotoEditorComponent,
     TimeAgoPipe,
     MemberMessagesComponent,
@@ -125,6 +130,7 @@ export function tokenGetter() {
       MissionListResolver,
       MissionDetailResolver,
       MissionCreateResolver,
+      MissionTeamListResolver,
       AdminService
     ],
   entryComponents: [

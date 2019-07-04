@@ -21,7 +21,7 @@ namespace MissionControlApp.API.Data
         public DbSet<MissionPlatform> MissionPlatforms { get; set; }
         public DbSet<BusinessFunction> BusinessFunctions { get; set; }
         public DbSet<Industry> Industries { get; set; }
-
+        public DbSet<MissionTeam> MissionTeams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -54,6 +54,12 @@ namespace MissionControlApp.API.Data
                 .HasOne(ma => ma.Mission)
                 .WithMany(a => a.MissionAccelerators)
                 .HasForeignKey(ma => ma.MissionId);  */
+
+            builder.Entity<MissionTeam>()
+                .HasOne(mt => mt.Mission)
+                .WithMany(mt => mt.MissionTeams)
+                .HasForeignKey(ma => ma.MissionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<MissionAccelerator>()
                 .HasOne(ma => ma.Mission)

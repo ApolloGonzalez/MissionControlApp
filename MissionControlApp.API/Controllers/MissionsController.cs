@@ -182,6 +182,31 @@ namespace MissionControlApp.API.Controllers
             return Ok(missionsToReturn);
         }
 
+        [HttpGet("{missionId}/missionteam", Name = "GetMissionTeam")]
+        public async Task<IActionResult> GetMissionTeam(int missionId)
+        {
+            var missionTeam = await _repo.GetMissionTeam(missionId);
+
+            var missionTeamToReturn = (from teamMember in missionTeam
+                select new MissionTeamToReturnDto 
+                {
+                    Id = teamMember.Id,
+                    UserId = teamMember.User.Id,
+                    MissionId = teamMember.MissionId,
+                    Username = teamMember.User.UserName,
+                    Gender = teamMember.User.Gender,
+                    Age = teamMember.User.DateOfBirth.CalculateAge(),
+                    KnownAs = teamMember.User.KnownAs,
+                    Created = teamMember.User.Created,
+                    LastActive = teamMember.User.LastActive,
+                    City = teamMember.User.City,
+                    Country = teamMember.User.Country,
+                    PhotoUrl = teamMember.User.Photos.FirstOrDefault(p => p.IsMain).Url
+                }).ToList();
+        
+            return Ok(missionTeamToReturn);
+        }
+
         [HttpGet("industries", Name = "GetIndustries")]
         public async Task<IActionResult> GetIndustries()
         {

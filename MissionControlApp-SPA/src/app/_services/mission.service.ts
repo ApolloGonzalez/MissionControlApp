@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Mission } from '../_models/mission';
 import { Platform } from '../_models/platform';
 import { MissionCreateFormLists } from '../_models/missioncreateformlists';
+import { MissionTeamMember } from '../_models/missionteammember';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,11 @@ export class MissionService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
+
+  getMissionTeam(userId: number, id: number): Observable<MissionTeamMember> {
+    return this.http
+      .get<MissionTeamMember>(this.baseUrl + 'users/' + userId + '/missions/' + id + '/missionteam');
+  }
 
   getMission(userId: number, id: number): Observable<Mission> {
     return this.http.get<Mission>(this.baseUrl + 'users/' + userId + '/missions/' + id);
