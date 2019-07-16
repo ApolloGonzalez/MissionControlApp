@@ -3,6 +3,7 @@ import { User } from '../../_models/user';
 import { AdminService } from '../../_services/admin.service';
 import { BsModalService, BsModalRef } from '../../../../node_modules/ngx-bootstrap';
 import { RolesModalComponent } from '../roles-modal/roles-modal.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-management',
@@ -13,11 +14,14 @@ export class UserManagementComponent implements OnInit {
   users: User[];
   bsModalRef: BsModalRef;
 
-  constructor(private adminService: AdminService,
+  constructor(private adminService: AdminService, private route: ActivatedRoute,
     private modalService: BsModalService) { }
 
   ngOnInit() {
-    this.getUsersWithRoles();
+    // this.getUsersWithRoles();
+    this.route.data.subscribe(data => {
+      this.users = data['users'];
+    });
   }
 
   getUsersWithRoles() {
@@ -56,6 +60,8 @@ export class UserManagementComponent implements OnInit {
       {name: 'Moderator', value: 'Moderator'},
       {name: 'Member', value: 'Member'},
       {name: 'VIP', value: 'VIP'},
+      {name: 'MissionAdmin', value: 'MissionAdmin'},
+      {name: 'UserManager', value: 'UserManager'}
     ];
 
     for (let i = 0; i < availableRoles.length; i++) {
@@ -75,5 +81,4 @@ export class UserManagementComponent implements OnInit {
     }
     return roles;
   }
-
 }

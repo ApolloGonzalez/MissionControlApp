@@ -26,7 +26,7 @@ export class NavComponent implements OnInit {
       console.log(error);
       this.alertify.error(error);
     }, () => {
-      this.router.navigate(['/missions']);
+      this.router.navigate(['/memberdashboard']);
     });
   }
 

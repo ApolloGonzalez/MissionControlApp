@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import {Routes, ResolveEnd} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -24,6 +24,14 @@ import { MissionCreateComponent } from './missions/mission-create/mission-create
 import { MissionCreateResolver } from './_resolvers/mission-create.resolver';
 import { MissionTeamListComponent } from './missions/mission-team-list/mission-team-list.component';
 import { MissionTeamListResolver } from './_resolvers/mission-team-list.resolver';
+import { MemberDashboardComponent } from './members/member-dashboard/member-dashboard.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { MissionQueueComponent } from './admin/mission-queue/mission-queue.component';
+import { UsersWithRolesResolver } from './_resolvers/users-with-roles.resolver';
+import { MissionsQueueResolver } from './_resolvers/missions-queue.resolver';
+import { MissionManagementComponent } from './admin/mission-management/mission-management.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -34,6 +42,9 @@ export const appRoutes: Routes = [
         children: [
             {path: 'members', component: MemberListComponent,
                 resolve: {users: MemberListResolver}
+            },
+            {path: 'memberdashboard', component: MemberDashboardComponent/* ,
+                resolve: {users: MemberListResolver} */
             },
             {
                 path: 'missions/create',
@@ -59,7 +70,7 @@ export const appRoutes: Routes = [
                         component: MissionAssessmentInsightsComponent
                     },
                     {
-                        path: 'projectlifecycle',
+                        path: 'missionlifecycle',
                         component: MissionProjectLifecycleComponent
                     },
                     {
@@ -75,7 +86,53 @@ export const appRoutes: Routes = [
                 resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
             {path: 'lists', component: ListsComponent, resolve: {users: ListsResolver}},
-            {path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin', 'Moderator']}},
+            {
+                path: 'admin',
+                /* component: AdminPanelComponent, */
+                component: AdminComponent,
+                /* resolve: { missions: MissionListResolver }, */
+                data:
+                {
+                    roles: ['Admin', 'Moderator', 'MissionAdmin', 'UserManager']
+                },
+                children: [
+                    {
+                        path: '',
+                        component: AdminHomeComponent,
+                        data:
+                        {
+                            roles: ['Admin', 'UserManager', 'MissionAdmin']
+                        }
+                    },
+                    {
+                        path: 'usermanagement',
+                        component: UserManagementComponent,
+                        resolve: { users: UsersWithRolesResolver },
+                        data:
+                        {
+                            roles: ['Admin', 'UserManager']
+                        }
+                    },
+                    {
+                        path: 'missionqueue',
+                        component: MissionQueueComponent,
+                        resolve: { missions: MissionsQueueResolver },
+                        data:
+                        {
+                            roles: ['Admin', 'MissionAdmin']
+                        }
+                    },
+                    {
+                        path: 'missionmanagement/:id',
+                        component: MissionManagementComponent,
+                        resolve: { mission: MissionDetailResolver },
+                        data:
+                        {
+                            roles: ['Admin', 'MissionAdmin']
+                        }
+                    }
+                ]
+            }
         ]
     },
     {path: '**', redirectTo: '', pathMatch: 'full'},

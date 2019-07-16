@@ -101,6 +101,21 @@ namespace MissionControlApp.API.Data
             return await PagedList<Mission>.CreateAsync(missions, missionParams.PageNumber, missionParams.PageSize);
         }
 
+        public async Task<PagedList<Mission>> GetMissionsInQueue(MissionParams missionParams)
+        {
+            var missions = _context.Missions
+                .Include(u => u.User)
+                .Include(b => b.BusinessFunction)
+                .Include(i => i.Industry)
+                .Include(ma => ma.MissionAccelerators)
+                .ThenInclude(a => a.Accelerator)
+                .Include(mp => mp.MissionPlatforms)
+                .ThenInclude(p => p.Platform)
+                .AsQueryable();
+
+            return await PagedList<Mission>.CreateAsync(missions, missionParams.PageNumber, missionParams.PageSize);
+        }
+
         public async Task<Like> GetLike(int userId, int recipientId)
         {
             return await _context.Likes.FirstOrDefaultAsync(u =>

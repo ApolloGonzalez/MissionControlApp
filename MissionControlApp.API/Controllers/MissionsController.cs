@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MissionControlApp.API.Data;
 using MissionControlApp.API.Dtos;
@@ -130,6 +131,67 @@ namespace MissionControlApp.API.Controllers
             missionParams.UserId = currentUserId;
             
             var missions = await _repo.GetMissions(missionParams);
+
+            var missionsToReturn = (from mission in missions
+                select new MissionToReturnDto 
+                {
+                    UserId = mission.UserId,
+                    UserName = mission.User.UserName,
+                    KnownAs = mission.User.KnownAs,
+                    MissionId = mission.Id,
+                    MissionName = mission.MissionName,
+                    IndustryId = mission.IndustryId,
+                    IndustryAlias = mission.Industry.IndustryAlias,
+                    BusinessFunctionId = mission.BusinessFunctionId,
+                    BusinessFunctionAlias = mission.BusinessFunction.BusinessFunctionAlias,
+                    Challenge = mission.Challenge,
+                    DesiredOutcome = mission.DesiredOutcome,
+                    TimeFrame = mission.TimeFrame,
+                    Accelerators = 
+                        (from accelerator in mission.MissionAccelerators.Select(a => a.Accelerator).ToList() 
+                        select new MissionAcceleratorToReturnDto
+                        { 
+                            Id = accelerator.Id,
+                            MissionId = mission.Id,
+                            AcceleratorName = accelerator.AcceleratorName,
+                            ModelType = accelerator.ModelType,
+                            DateCreated = accelerator.DateCreated,
+                            Description = accelerator.Description,
+                            Active = accelerator.Active
+                        }).ToList(),
+                    Platforms = 
+                        (from platform in mission.MissionPlatforms.Select(a => a.Platform).ToList() 
+                        select new MissionPlatformToReturnDto
+                        { 
+                            Id = platform.Id,
+                            MissionId = platform.Id,
+                            PlatformName = platform.PlatformName,
+                            PlatformAlias = platform.PlatformAlias,
+                            Description = platform.Description,
+                            Type = platform.Type,
+                            DateCreated = platform.DateCreated,
+                            Active = platform.Active
+                        }).ToList(),                        
+                    DateCreated = mission.DateCreated,
+                    Active = mission.Active,
+                    Public = mission.Public
+                }).OrderByDescending(cr => cr.DateCreated);
+
+            Response.AddPagination(missions.CurrentPage, missions.PageSize,
+                missions.TotalCount, missions.TotalPages);
+
+            return Ok(missionsToReturn);
+        }
+
+        [Authorize(Policy = "ManageMissionQueueRole")]
+        [HttpGet("GetMissionsInQueue")]
+        public async Task<IActionResult> GetMissionsInQueue([FromQuery]MissionParams missionParams)
+        {
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            missionParams.UserId = currentUserId;
+            
+            var missions = await _repo.GetMissionsInQueue(missionParams);
 
             var missionsToReturn = (from mission in missions
                 select new MissionToReturnDto 

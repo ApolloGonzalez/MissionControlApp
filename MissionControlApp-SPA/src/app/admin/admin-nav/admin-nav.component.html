@@ -1,0 +1,13 @@
+<div class="sidebar">
+    <a [routerLink]="['/admin/usermanagement']" 
+      routerLinkActive="active" 
+      *appHasRole="['Admin', 'UserManager']" >
+      <i class="fa fa-user fa-fw"></i> User Management
+    </a>
+    <a [routerLink]="['/admin/missionqueue']" 
+      routerLinkActive="active" 
+      *appHasRole="['Admin', 'MissionAdmin']">
+      <i class="fa fa-list-ul fa-fw"></i> Mission Queue
+    </a>
+    <a href="#ideas"><i class="fa fa-lightbulb-o fa-fw"></i> Ideation</a>
+  </div>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-      <a class="navbar-brand" [routerLink]="['/home']" style="margin-bottom: 10px;">
+      <a class="navbar-brand" [routerLink]="['/memberdashboard']" style="margin-bottom: 10px;">
         <i class="fa fa-rocket fa-2x" style="color: #ffffff;"></i> 
         &nbsp;MissionControl</a>
 
@@ -8,16 +8,16 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/missions']">Missions</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
+      <!-- <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/members']">Members</a>
-      </li>
+      </li> -->
       <!-- <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/lists']">Lists</a>
       </li> -->
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
-      <li *appHasRole="['Admin', 'Moderator']" class="nav-item" routerLinkActive="active">
+      <li *appHasRole="['Admin', 'UserManager', 'MissionAdmin']" class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/admin']">Admin</a>
       </li>
     </ul>
@@ -46,7 +46,7 @@
     <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
       <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required [(ngModel)]="model.username">
       <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required [(ngModel)]="model.password">
-      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+      <button [disabled]="!loginForm.valid" class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
     </form>
   </div>
 

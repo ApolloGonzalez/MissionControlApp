@@ -75,6 +75,8 @@ namespace MissionControlApp.API
                 options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
                 options.AddPolicy("VipOnly", policy => policy.RequireRole("VIP"));
+                options.AddPolicy("ManageMissionQueueRole", policy => policy.RequireRole("MissionAdmin"));
+                options.AddPolicy("UserManagementRole", policy => policy.RequireRole("UserManager"));
             });
 
             services.AddMvc(options => 

@@ -55,6 +55,14 @@ import { MissionCreateResolver } from './_resolvers/mission-create.resolver';
 import { MissionTeamListComponent } from './missions/mission-team-list/mission-team-list.component';
 import { MissionTeamListResolver } from './_resolvers/mission-team-list.resolver';
 import { MissionTeamMemberCardComponent } from './missions/mission-team-member-card/mission-team-member-card.component';
+import { MemberDashboardComponent } from './members/member-dashboard/member-dashboard.component';
+import { MissionQueueComponent } from './admin/mission-queue/mission-queue.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
+import { UsersWithRolesResolver } from './_resolvers/users-with-roles.resolver';
+import { MissionsQueueResolver } from './_resolvers/missions-queue.resolver';
+import { MissionManagementComponent } from './admin/mission-management/mission-management.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -72,6 +80,7 @@ export function tokenGetter() {
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
+    MemberDashboardComponent,
     MissionComponent,
     MissionCreateComponent,
     MissionListComponent,
@@ -82,10 +91,15 @@ export function tokenGetter() {
     MissionProjectLifecycleComponent,
     MissionTeamListComponent,
     MissionTeamMemberCardComponent,
+    MissionQueueComponent,
+    MissionManagementComponent,
     PhotoEditorComponent,
     TimeAgoPipe,
     MemberMessagesComponent,
     AdminPanelComponent,
+    AdminComponent,
+    AdminHomeComponent,
+    AdminNavComponent,
     HasRoleDirective,
     UserManagementComponent,
     PhotoManagementComponent,
@@ -131,6 +145,8 @@ export function tokenGetter() {
       MissionDetailResolver,
       MissionCreateResolver,
       MissionTeamListResolver,
+      MissionsQueueResolver,
+      UsersWithRolesResolver,
       AdminService
     ],
   entryComponents: [
