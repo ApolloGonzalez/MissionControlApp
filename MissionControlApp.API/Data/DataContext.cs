@@ -57,7 +57,7 @@ namespace MissionControlApp.API.Data
 
             builder.Entity<MissionTeam>()
                 .HasOne(mt => mt.Mission)
-                .WithMany(mt => mt.MissionTeams)
+                .WithMany(mt => mt.MissionTeam)
                 .HasForeignKey(ma => ma.MissionId)
                 .OnDelete(DeleteBehavior.Restrict);
 

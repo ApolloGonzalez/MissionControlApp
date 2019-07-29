@@ -22,14 +22,23 @@
                     </span>
                   </i>
                 </span>
-                <span style="font-size: 1.5em; font-weight: bold;">Mission On-Boarding</span>
+                <span style="font-size: 1.5em; font-weight: bold;">Mission On-Boarding </span>&nbsp;
+                <i class="fa fa-info-circle fa-1x fa-border"
+                  tooltip="The following information will be used to help assess what the Mission Control team should do to satisfy your request."
+                  style="color: #083f86;"></i>
               <hr class="mt-0">
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
-                <input type="text" class="form-control" formControlName="missionname" placeholder="Mission Name">
+                <input type="text"
+                  [ngClass]="{'is-invalid': missionForm.get('missionname').errors 
+                  && missionForm.get('missionname').touched}" 
+                  class="form-control" 
+                  formControlName="missionname" 
+                  placeholder="Mission Name">
+                <div class="invalid-feedback">Please provide a Mission Title</div>
               </div>
               <div class="form-group">
                 <textarea class="form-control" 
@@ -46,11 +55,55 @@
                 </textarea>
               </div>
               <div class="form-group">
+                <textarea class="form-control" 
+                  formControlName="businessimpact" 
+                  rows="2" 
+                  placeholder="Business Impact">
+                </textarea>
+              </div>
+              <div class="form-group">
                 <h4 class="control-label" style="margin-right:10px">Your Timeframe</h4>
-                <label class="radio-inline">
-                  <input class="mr-1" type="radio" value="1" formControlName="timeframe">Now
-                </label>
-                <label class="radio-inline ml-3">
+                <div class="custom-control custom-radio d-inline-block">
+                  <input class="custom-control-input" 
+                    type="radio" 
+                    value="1" 
+                    id="timeframe1"
+                    formControlName="timeframe">
+                  <label class="mr-2 custom-control-label" for="timeframe1">Now</label>
+                </div>
+                <div class="custom-control custom-radio d-inline-block">
+                  <input class="custom-control-input" 
+                    type="radio" 
+                    value="30" 
+                    id="timeframe2"
+                    formControlName="timeframe">
+                  <label class="mr-2 custom-control-label" for="timeframe2">30 days</label>
+                </div>
+                <div class="custom-control custom-radio d-inline-block">
+                  <input class="custom-control-input" 
+                    type="radio" 
+                    value="60" 
+                    id="timeframe3"
+                    formControlName="timeframe">
+                  <label class="mr-2 custom-control-label" for="timeframe3">60 days</label>
+                </div>
+                <div class="custom-control custom-radio d-inline-block">
+                  <input class="custom-control-input" 
+                    type="radio" 
+                    value="90" 
+                    id="timeframe4"
+                    formControlName="timeframe">
+                  <label class="mr-2 custom-control-label" for="timeframe4">90 days</label>
+                </div>
+                <div class="custom-control custom-radio d-inline-block">
+                  <input class="custom-control-input" 
+                    type="radio" 
+                    value="1000" 
+                    id="timeframe5"
+                    formControlName="timeframe">
+                  <label class="mr-2 custom-control-label" for="timeframe5"> > 90 days</label>
+                </div>
+                <!-- <label class="radio-inline ml-3">
                   <input class="mr-2" type="radio" value="30" formControlName="timeframe">30 days
                 </label>
                 <label class="radio-inline ml-3">
@@ -61,18 +114,30 @@
                 </label>
                 <label class="radio-inline ml-3">
                     <input class="mr-2" type="radio" value="1000" formControlName="timeframe">> 90 days
-                </label>                                
+                </label>      -->                           
               </div>
               <div class="form-group">
                 <h4 class="control-label" style="margin-right:10px">Your Current Data/AI Platform</h4>
-                <label formArrayName="missionplatforms" 
+<!--                 <label formArrayName="missionplatforms" 
                   class="checkbox-inline mr-3" 
                   *ngFor="let platform of missionForm.controls['missionplatforms'].controls; let i = index">
                   <input type="checkbox" 
                     value="{{platforms[i].id}}" 
                     [formControlName]="i"> 
                     {{platforms[i].platformAlias}} 
-                </label>
+                </label> -->
+                <div formArrayName="missionplatforms" class="custom-control custom-checkbox d-inline-block"
+                  *ngFor="let platform of missionForm.controls['missionplatforms'].controls; let i = index">
+                  <input class="custom-control-input" 
+                    type="checkbox" 
+                    value="{{platforms[i].id}}" 
+                    id="platforms{{i}}"
+                    [formControlName]="i">
+                  <label class="mr-2 custom-control-label" 
+                    for="platforms{{i}}">
+                    {{platforms[i].platformAlias}}
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -80,12 +145,22 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <h4 class="control-label" style="margin-right:10px">Mission Public or Private?</h4>
-                <label class="radio-inline">
-                  <input class="mr-1" type="radio" value="true" formControlName="public">Public
-                </label>
-                <label class="radio-inline ml-3">
-                  <input class="mr-2" type="radio" value="false" formControlName="public">Private
-                </label>                          
+                <div class="custom-control custom-radio d-inline-block">
+                  <input class="custom-control-input" 
+                    type="radio" 
+                    value="true" 
+                    id="public1"
+                    formControlName="public">
+                  <label class="mr-2 custom-control-label" for="public1">Public</label>
+                </div>
+                <div class="custom-control custom-radio d-inline-block">
+                  <input class="custom-control-input" 
+                    type="radio" 
+                    value="false" 
+                    id="public2"
+                    formControlName="public">
+                  <label class="mr-2 custom-control-label" for="public2">Private</label>
+                </div>
               </div>
             </div>
           </div>
@@ -103,7 +178,10 @@
                         </span>
                       </i>
                     </span>
-                    <span style="font-size: 1.5em; font-weight: bold;">Mission On-Boarding PoC</span>
+                    <span style="font-size: 1.5em; font-weight: bold;">Mission On-Boarding PoC </span> &nbsp;
+                    <i class="fa fa-info-circle fa-1x fa-border"
+                      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+                      style="color: #083f86;"></i>
                 <hr class="mt-0">
               </div>
             </div>
@@ -161,7 +239,7 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group text-center">
-                <button class="btn btn-success" [disabled]="!missionForm.valid" type="submit">Create</button>
+                <button class="btn btn-primary" [disabled]="!missionForm.valid" type="submit">Create</button>
                 <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
               </div>
           </div>
@@ -171,5 +249,5 @@
   </div>
 </div>
 
-<!-- <p>Form Value: {{missionForm.value | json}}</p> -->
-<!-- <p>Form Status: {{missionForm.status | json}}</p> -->
+<!-- <p>Form Value: {{missionForm.value | json}}</p>
+<p>Form Status: {{missionForm.status | json}}</p> -->

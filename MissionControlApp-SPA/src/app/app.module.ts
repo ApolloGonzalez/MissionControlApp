@@ -9,6 +9,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { OrderModule } from 'ngx-order-pipe';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -63,6 +64,7 @@ import { UsersWithRolesResolver } from './_resolvers/users-with-roles.resolver';
 import { MissionsQueueResolver } from './_resolvers/missions-queue.resolver';
 import { MissionManagementComponent } from './admin/mission-management/mission-management.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { MissionTeamModalComponent } from './admin/mission-team-modal/mission-team-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -103,10 +105,12 @@ export function tokenGetter() {
     HasRoleDirective,
     UserManagementComponent,
     PhotoManagementComponent,
-    RolesModalComponent
+    RolesModalComponent,
+    MissionTeamModalComponent
   ],
   imports: [
     BrowserModule,
+    OrderModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -150,7 +154,8 @@ export function tokenGetter() {
       AdminService
     ],
   entryComponents: [
-    RolesModalComponent
+    RolesModalComponent,
+    MissionTeamModalComponent
   ],
   bootstrap: [AppComponent]
 })

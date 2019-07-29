@@ -18,12 +18,14 @@ namespace MissionControlApp.API.Controllers
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {
+        private readonly IMissionControlRepository _missionControlRepo;
         private readonly DataContext _context;
         private readonly UserManager<User> _userManager;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
 
         public AdminController(
+            IMissionControlRepository missionControlRepo,
             DataContext context,
             UserManager<User> userManager,
             IOptions<CloudinarySettings> cloudinaryConfig)
@@ -31,6 +33,7 @@ namespace MissionControlApp.API.Controllers
             _userManager = userManager;
             _cloudinaryConfig = cloudinaryConfig;
             _context = context;
+            _missionControlRepo = missionControlRepo;
 
             Account acc = new Account(
                 _cloudinaryConfig.Value.CloudName,
@@ -51,6 +54,8 @@ namespace MissionControlApp.API.Controllers
                                   {
                                       Id = user.Id,
                                       UserName = user.UserName,
+                                      JobTitle = user.JobTitle,
+                                      Employee = user.Employee,
                                       Roles = (from userRole in user.UserRoles
                                                join role in _context.Roles
                                                on userRole.RoleId
@@ -59,6 +64,61 @@ namespace MissionControlApp.API.Controllers
                                   }).ToListAsync();
             return Ok(userList);
         }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpGet("missionTeam/{missionId}")]
+        public async Task<IActionResult> GetMissionTeam(int missionId)
+        {
+            var missionTeam = await _missionControlRepo.GetMissionTeam(missionId);
+
+            var missionTeamToReturn = (from teamMember in missionTeam
+                select new MissionTeamToReturnDto 
+                {
+                    Id = teamMember.Id,
+                    UserId = teamMember.User.Id,
+                    MissionId = teamMember.MissionId,
+                    Username = teamMember.User.UserName,
+                    Employee = teamMember.User.Employee,
+                    JobTitle = teamMember.User.JobTitle,
+                    Gender = teamMember.User.Gender,
+                    Age = teamMember.User.DateOfBirth.CalculateAge(),
+                    KnownAs = teamMember.User.KnownAs,
+                    Created = teamMember.User.Created,
+                    LastActive = teamMember.User.LastActive,
+                    City = teamMember.User.City,
+                    Country = teamMember.User.Country,
+                    PhotoUrl = teamMember.User.Photos.FirstOrDefault(p => p.IsMain).Url
+                }).ToList();
+        
+            return Ok(missionTeamToReturn);
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpGet("missionEmployees")]
+        public async Task<IActionResult> GetMissionEmployees(int missionId)
+        {
+            var missionEmployees = await _missionControlRepo.GetMissionEmployees();
+
+            var missionEmployeesToReturn = (from employee in missionEmployees
+                select new UserForDetailedDto 
+                {
+                    Id = employee.Id,
+                    Username = employee.UserName,
+                    Employee = employee.Employee,
+                    JobTitle = employee.JobTitle,
+                    Gender = employee.Gender,
+                    Age = employee.DateOfBirth.CalculateAge(),
+                    KnownAs = employee.KnownAs,
+                    Created = employee.Created,
+                    LastActive = employee.LastActive,
+                    City = employee.City,
+                    Country = employee.Country,
+                    PhotoUrl = employee.Photos.FirstOrDefault(p => p.IsMain).Url
+                }).ToList();
+        
+            return Ok(missionEmployeesToReturn);
+        }
+
 
         [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("editRoles/{userName}")]

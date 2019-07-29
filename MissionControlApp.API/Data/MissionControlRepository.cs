@@ -72,6 +72,17 @@ namespace MissionControlApp.API.Data
             return missionTeams;
         }
 
+        
+        public async Task<IEnumerable<User>> GetMissionEmployees()
+        {
+            var users =  await _context.Users
+                .Include(p => p.Photos)
+                .Where(u => u.Employee == true)
+                .ToListAsync();
+
+            return users;
+        }
+
         public async Task<Mission> GetMission(int userId, int missionId)
         {
             return await _context.Missions
@@ -82,6 +93,9 @@ namespace MissionControlApp.API.Data
                 .ThenInclude(a => a.Accelerator)
                 .Include(mp => mp.MissionPlatforms)
                 .ThenInclude(p => p.Platform)
+                .Include(mt => mt.MissionTeam)
+                .ThenInclude(mu => mu.User)
+                .ThenInclude(p => p.Photos)
                 .FirstOrDefaultAsync(i => i.Id == missionId && i.UserId == userId);
         }
 
@@ -95,6 +109,7 @@ namespace MissionControlApp.API.Data
                 .ThenInclude(a => a.Accelerator)
                 .Include(mp => mp.MissionPlatforms)
                 .ThenInclude(p => p.Platform)
+                .Include(mt => mt.MissionTeam)
                 .Where(mu => mu.UserId == missionParams.UserId)
                 .AsQueryable();
 
@@ -111,6 +126,9 @@ namespace MissionControlApp.API.Data
                 .ThenInclude(a => a.Accelerator)
                 .Include(mp => mp.MissionPlatforms)
                 .ThenInclude(p => p.Platform)
+                .Include(mt => mt.MissionTeam)
+                .ThenInclude(u => u.User)
+                .ThenInclude(p => p.Photos)
                 .AsQueryable();
 
             return await PagedList<Mission>.CreateAsync(missions, missionParams.PageNumber, missionParams.PageSize);

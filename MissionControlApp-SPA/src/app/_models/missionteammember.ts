@@ -4,6 +4,8 @@ export interface MissionTeamMember {
     userId: number;
     userName: string;
     knownAs: string;
+    employee: boolean;
+    jobTitle: string;
     age: number;
     gender: string;
     created: Date;

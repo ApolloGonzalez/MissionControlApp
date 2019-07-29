@@ -16,10 +16,11 @@ namespace MissionControlApp.API.Models
         public BusinessFunction BusinessFunction { get; set; }
         public string Challenge { get; set; }
         public string DesiredOutcome { get; set; }
+        public string BusinessImpact { get; set; }
         public int TimeFrame { get; set; }
         public ICollection<MissionAccelerator> MissionAccelerators { get; set; }
         public ICollection<MissionPlatform> MissionPlatforms { get; set; }
-        public ICollection<MissionTeam> MissionTeams { get; set; }
+        public ICollection<MissionTeam> MissionTeam { get; set; }
         public bool Public { get; set; }
         public DateTime? DateCreated { get; set; }
         public bool Active { get; set; }

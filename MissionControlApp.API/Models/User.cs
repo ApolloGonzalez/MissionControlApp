@@ -13,10 +13,12 @@ namespace MissionControlApp.API.Models
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         public string Introduction { get; set; }
-        public string LookingFor { get; set; }
+        public string Experience { get; set; }
         public string Interests { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        public string JobTitle { get; set; }
+        public bool Employee { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Mission> Missions { get; set; }
         public ICollection<Like> Likers { get; set; }

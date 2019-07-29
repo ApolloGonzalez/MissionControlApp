@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">
+    Edit 
+    <b>"{{mission.missionName}}"</b> Team
+  </h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #rolesForm="ngForm" id="missionTeamForm">
+    <div class="form-check" *ngFor="let teamMember of missionTeamMembers | orderBy: 'checked' : true">
+      <div class="row mb-4">
+        <div class="col-sm-1">
+          <input
+            class="form-check-input center"
+            type="checkbox" 
+            value="teamMember.knownAs"
+            [checked]="teamMember.checked"
+            (change)="teamMember.checked = !teamMember.checked">
+        </div>
+        <div class="col-sm-2 pr-0">
+          <img class="team-img p-0"
+          src="{{ teamMember.photoUrl || '../../../assets/user.png' }}"
+          alt="{{ teamMember.knownAs }}"/>
+        </div>
+        <div class="col pl-0">
+          <ul class="fa-ul p-0 m-0">
+            <li><i class="fa fa-user fa-1x fa-fw" style="color: #083f86;"></i> {{ teamMember.knownAs }}</li>
+            <li><i class="fa fa-flask fa-1x fa-fw" style="color: #083f86;"></i> {{ teamMember.jobTitle }}</li>
+          </ul>
+        </div>
+      </div>
+
+
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
+  <button type="button" class="btn btn-success" (click)="updateTeamMembers()" form="missionTeamForm">Submit</button>
+</div>

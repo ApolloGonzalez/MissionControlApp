@@ -11,6 +11,14 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
+  getMissionTeam(missionId: number) {
+    return this.http.get(this.baseUrl + 'admin/missionTeam/' + missionId);
+  }
+
+  getMissionEmployees() {
+    return this.http.get(this.baseUrl + 'admin/missionemployees');
+  }
+
   getUsersWithRoles() {
     return this.http.get(this.baseUrl + 'admin/userswithroles');
   }

@@ -4,6 +4,8 @@ export interface User {
   id: number;
   userName: string;
   knownAs: string;
+  employee: boolean;
+  jobTitle: string;
   age: number;
   gender: string;
   created: Date;
@@ -11,9 +13,9 @@ export interface User {
   photoUrl: string;
   city: string;
   country: string;
-  interests?: string;
+  experience?: string;
   introduction?: string;
-  lookingFor?: string;
+  interests?: string;
   photos?: Photo[];
   roles?: string[];
 }

@@ -39,6 +39,7 @@ namespace MissionControlApp.API.Controllers
                 BusinessFunctionId = missionForCreateDto.BusinessFunctionId,
                 DesiredOutcome = missionForCreateDto.DesiredOutcome,
                 Challenge = missionForCreateDto.Challenge,
+                BusinessImpact = missionForCreateDto.BusinessImpact,
                 TimeFrame = missionForCreateDto.TimeFrame,
                 Public = missionForCreateDto.Public
             };
@@ -83,6 +84,8 @@ namespace MissionControlApp.API.Controllers
                 UserId = mission.UserId,
                 UserName = mission.User.UserName,
                 KnownAs = mission.User.KnownAs,
+                Employee = mission.User.Employee,
+                JobTitle = mission.User.JobTitle,
                 MissionId = mission.Id,
                 MissionName = mission.MissionName,
                 IndustryId = mission.IndustryId,
@@ -91,6 +94,7 @@ namespace MissionControlApp.API.Controllers
                 BusinessFunctionAlias = mission.BusinessFunction.BusinessFunctionAlias,
                 Challenge = mission.Challenge,
                 DesiredOutcome = mission.DesiredOutcome,
+                BusinessImpact = mission.BusinessImpact,
                 TimeFrame = mission.TimeFrame,
                 Accelerators = 
                     (from accelerator in mission.MissionAccelerators.Select(a => a.Accelerator).ToList() 
@@ -117,6 +121,23 @@ namespace MissionControlApp.API.Controllers
                             DateCreated = platform.DateCreated,
                             Active = platform.Active
                         }).ToList(),
+                    MissionTeam = 
+                        (from missionTeam in mission.MissionTeam.ToList()
+                        select new MissionTeamToReturnDto
+                        {
+                            Id = missionTeam.Id,
+                            UserId = missionTeam.UserId,
+                            MissionId = missionTeam.MissionId,
+                            Username = missionTeam.User.UserName,
+                            KnownAs = missionTeam.User.KnownAs,
+                            Employee = missionTeam.User.Employee,
+                            JobTitle = missionTeam.User.JobTitle,
+                            Gender = missionTeam.User.Gender,
+                            City = missionTeam.User.City,
+                            Country = missionTeam.User.Country,
+                            Created = missionTeam.DateCreated,
+                            PhotoUrl = missionTeam.User.Photos.FirstOrDefault(p => p.IsMain).Url
+                        }).ToList(),
                 DateCreated = mission.DateCreated,
                 Active = mission.Active,
                 Public = mission.Public
@@ -138,6 +159,8 @@ namespace MissionControlApp.API.Controllers
                     UserId = mission.UserId,
                     UserName = mission.User.UserName,
                     KnownAs = mission.User.KnownAs,
+                    Employee = mission.User.Employee,
+                    JobTitle = mission.User.JobTitle,
                     MissionId = mission.Id,
                     MissionName = mission.MissionName,
                     IndustryId = mission.IndustryId,
@@ -146,6 +169,7 @@ namespace MissionControlApp.API.Controllers
                     BusinessFunctionAlias = mission.BusinessFunction.BusinessFunctionAlias,
                     Challenge = mission.Challenge,
                     DesiredOutcome = mission.DesiredOutcome,
+                    BusinessImpact = mission.BusinessImpact,
                     TimeFrame = mission.TimeFrame,
                     Accelerators = 
                         (from accelerator in mission.MissionAccelerators.Select(a => a.Accelerator).ToList() 
@@ -171,7 +195,21 @@ namespace MissionControlApp.API.Controllers
                             Type = platform.Type,
                             DateCreated = platform.DateCreated,
                             Active = platform.Active
-                        }).ToList(),                        
+                        }).ToList(),    
+                   /*  MissionTeam = 
+                        (from missionTeam in mission.MissionTeams.Select(a => a.User).ToList()
+                        select new MissionTeamToReturnDto
+                        {
+                            UserId = missionTeam.Id,
+                            Username = missionTeam.UserName,
+                            KnownAs = missionTeam.KnownAs,
+                            Employee = missionTeam.Employee,
+                            JobTitle = missionTeam.JobTitle,
+                            Gender = missionTeam.Gender,
+                            City = missionTeam.City,
+                            Country = missionTeam.Country,
+                            PhotoUrl = missionTeam.Photos.FirstOrDefault(p => p.IsMain).Url
+                        }).ToList(), */
                     DateCreated = mission.DateCreated,
                     Active = mission.Active,
                     Public = mission.Public
@@ -199,6 +237,8 @@ namespace MissionControlApp.API.Controllers
                     UserId = mission.UserId,
                     UserName = mission.User.UserName,
                     KnownAs = mission.User.KnownAs,
+                    Employee = mission.User.Employee,
+                    JobTitle = mission.User.JobTitle,
                     MissionId = mission.Id,
                     MissionName = mission.MissionName,
                     IndustryId = mission.IndustryId,
@@ -207,6 +247,7 @@ namespace MissionControlApp.API.Controllers
                     BusinessFunctionAlias = mission.BusinessFunction.BusinessFunctionAlias,
                     Challenge = mission.Challenge,
                     DesiredOutcome = mission.DesiredOutcome,
+                    BusinessImpact = mission.BusinessImpact,
                     TimeFrame = mission.TimeFrame,
                     Accelerators = 
                         (from accelerator in mission.MissionAccelerators.Select(a => a.Accelerator).ToList() 
@@ -232,11 +273,28 @@ namespace MissionControlApp.API.Controllers
                             Type = platform.Type,
                             DateCreated = platform.DateCreated,
                             Active = platform.Active
-                        }).ToList(),                        
+                        }).ToList(),
+                    MissionTeam = 
+                        (from missionTeam in mission.MissionTeam.ToList()
+                        select new MissionTeamToReturnDto
+                        {
+                            Id = missionTeam.Id,
+                            UserId = missionTeam.UserId,
+                            MissionId = missionTeam.MissionId,
+                            Username = missionTeam.User.UserName,
+                            KnownAs = missionTeam.User.KnownAs,
+                            Employee = missionTeam.User.Employee,
+                            JobTitle = missionTeam.User.JobTitle,
+                            Gender = missionTeam.User.Gender,
+                            City = missionTeam.User.City,
+                            Country = missionTeam.User.Country,
+                            Created = missionTeam.DateCreated,
+                            PhotoUrl = missionTeam.User.Photos.FirstOrDefault(p => p.IsMain).Url
+                        }).ToList(),                    
                     DateCreated = mission.DateCreated,
                     Active = mission.Active,
                     Public = mission.Public
-                }).OrderByDescending(cr => cr.DateCreated);
+                }).OrderBy(cr => cr.TimeFrame);
 
             Response.AddPagination(missions.CurrentPage, missions.PageSize,
                 missions.TotalCount, missions.TotalPages);
@@ -256,6 +314,8 @@ namespace MissionControlApp.API.Controllers
                     UserId = teamMember.User.Id,
                     MissionId = teamMember.MissionId,
                     Username = teamMember.User.UserName,
+                    Employee = teamMember.User.Employee,
+                    JobTitle = teamMember.User.JobTitle,
                     Gender = teamMember.User.Gender,
                     Age = teamMember.User.DateOfBirth.CalculateAge(),
                     KnownAs = teamMember.User.KnownAs,

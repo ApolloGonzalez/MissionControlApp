@@ -47,10 +47,11 @@ export class MissionCreateComponent implements OnInit {
     const platformFormControls = this.platforms.map(control => new FormControl(false));
 
     this.missionForm = this.fb.group({
-      missionname: [''],
+      missionname: ['', Validators.required],
       challenge: [''],
       missionplatforms: new FormArray(platformFormControls),
       desiredoutcome: [''],
+      businessimpact: [''],
       timeframe: [''],
       businessfunctionid: [''],
       industryid: [''],

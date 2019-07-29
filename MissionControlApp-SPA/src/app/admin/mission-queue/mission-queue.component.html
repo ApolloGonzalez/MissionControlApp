@@ -76,7 +76,8 @@
         <td>{{mission.challenge}}</td>
         <td>{{mission.dateCreated | timeAgo}}</td>
         <td>{{mission.timeFrame}} day(s)</td>
-        <td class="text-center">No</td>
+        <td class="text-center" *ngIf="mission.missionTeam?.length === 0" >No</td>
+        <td class="text-center" *ngIf="mission.missionTeam?.length > 0" >Yes</td>
       </tr>
     </tbody>
   </table>
