@@ -1,4 +1,101 @@
-<div class="row">
+<div class="col-sm-12 mt-4">
+  <div class="card">
+    <div class="card-header">
+      <div class="float-left text-capitalize" style="font-size:x-large;">
+        <i class="fa fa-rocket" style="color: #083f86;"></i>
+        {{ mission.missionName }}
+      </div>
+      <div class="float-right" style="padding-top: 5px;">
+        <b>Created by:</b> {{ mission.knownAs }} -
+        {{ mission.dateCreated | timeAgo }}
+        <div>
+          <b>Timeframe:</b> {{ mission.timeFrame }} - day(s)
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-panel border-0">
+        <tabset class="mission-management-tabset" #missionManagementTabs>
+          <tab heading="Summary">
+            <!-- <ng-template tabHeading>  
+              <i *ngIf="mission.missionTeam.length > 0" class="fa fa-check fa-fw"></i>Summary
+            </ng-template> -->
+            Summary Page
+          </tab>
+          <tab>
+            <ng-template tabHeading>
+              <i class="fa fa-check fa-fw text-success"></i>Mission Details
+            </ng-template>
+            <div class="col-sm-12">
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                  <h4 class="card-title mb-0">Challenge</h4>
+                  <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{mission.challenge}}</p>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                  <h4 class="card-title mb-0">Desired Outcome</h4>
+                  <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{mission.desiredOutcome}}</p>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-sm-12">
+                  <h4 class="card-title mb-0">Business Impact</h4>
+                  <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{mission.businessImpact}}</p>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-sm-6">
+                  <h4 class="card-title mb-0">Business Function</h4>
+                  <p class="card-text alert alert-light mt-0" style="padding: 15px;">{{mission.businessFunctionAlias}}
+                  </p>
+                </div>
+                <div class="col-sm-6">
+                  <h4 class="card-title mb-0">Industry</h4>
+                  <p class="card-text alert alert-light mt-0" style="padding: 15px;">{{mission.industryAlias}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h4 class="card-title">Accelerators</h4>
+                  <span class="card-text alert alert-success mr-1" style="font-size: small; padding: 2px;"
+                    *ngFor="let accelerator of mission.accelerators" tooltip="{{accelerator.description}}">
+                    {{accelerator.acceleratorName}}
+                  </span>
+                  <h4 class="card-title mt-3">Your Current AI Platform(s)</h4>
+                  <span class="card-text alert alert-info mr-1 mb-2" style="font-size: small; padding: 2px;"
+                    *ngFor="let platform of mission.platforms" tooltip="{{platform.description}}">
+                    {{platform.platformAlias}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </tab>
+          <tab>
+            <ng-template tabHeading>
+              <div *ngIf="mission.missionTeam.length > 0">
+                <i class="fa fa-check fa-fw text-success"></i>Mission Team
+              </div>
+              <div *ngIf="mission.missionTeam.length === 0">
+                <i class="fa fa-check fa-fw text-muted"></i>Mission Team
+              </div>
+            </ng-template>
+            <app-mission-team-management [mission]="mission"></app-mission-team-management>
+          </tab>
+          <tab heading="Mission Assessment">
+            <h4>Mission Assessment</h4>
+          </tab>
+          <!-- <tab heading="Messages">
+            <app-member-messages [recipientId]="4"></app-member-messages>
+          </tab> -->
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row">
   <div class="col-sm-12">
     <div class="card bg-light mt-2 mb-3" style="max-width: 100%;">
       <div class="card-header" style="clear: both; line-height: 0; padding-top: 15px; padding-bottom: 15px;">
@@ -93,48 +190,8 @@
                 </div>
               </div>
             </div>
-          </div>
-
-
-          <!-- <div class="col-sm-8">
-          <div class="row mt-2">
-            <div class="col-sm-12">
-              <h4 class="card-title mb-0">Challenge</h4>
-              <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{mission.challenge}}</p>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-sm-12">
-              <h4 class="card-title mb-0">Desired Outcome</h4>
-              <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{mission.desiredOutcome}}</p>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-sm-6">
-              <h4 class="card-title mb-0">Business Function</h4>
-              <p class="card-text alert alert-light mt-0" style="padding: 15px;">{{mission.businessFunctionAlias}}</p>
-            </div>
-            <div class="col-sm-6">
-              <h4 class="card-title mb-0">Industry</h4>
-              <p class="card-text alert alert-light mt-0" style="padding: 15px;">{{mission.industryAlias}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <h4 class="card-title">Accelerators</h4>
-              <span class="card-text alert alert-success mr-1" style="font-size: small; padding: 2px;"
-                *ngFor="let accelerator of mission.accelerators" tooltip="{{accelerator.description}}">
-                {{accelerator.acceleratorName}}
-              </span>
-              <h4 class="card-title mt-3">Your Current AI Platform(s)</h4>
-              <span class="card-text alert alert-info mr-1 mb-2" style="font-size: small; padding: 2px;"
-                *ngFor="let platform of mission.platforms" tooltip="{{platform.description}}">
-                {{platform.platformAlias}}
-              </span>
-            </div>
-          </div> 
-        </div>-->
+          </div>    
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
