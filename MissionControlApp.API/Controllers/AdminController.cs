@@ -11,6 +11,9 @@ using Microsoft.Extensions.Options;
 using MissionControlApp.API.Helpers;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using System.Security.Claims;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace MissionControlApp.API.Controllers
 {
@@ -19,6 +22,7 @@ namespace MissionControlApp.API.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IMissionControlRepository _missionControlRepo;
+        private readonly IMapper _mapper;
         private readonly DataContext _context;
         private readonly UserManager<User> _userManager;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
@@ -26,6 +30,7 @@ namespace MissionControlApp.API.Controllers
 
         public AdminController(
             IMissionControlRepository missionControlRepo,
+            IMapper mapper,
             DataContext context,
             UserManager<User> userManager,
             IOptions<CloudinarySettings> cloudinaryConfig)
@@ -34,6 +39,7 @@ namespace MissionControlApp.API.Controllers
             _cloudinaryConfig = cloudinaryConfig;
             _context = context;
             _missionControlRepo = missionControlRepo;
+            _mapper = mapper;
 
             Account acc = new Account(
                 _cloudinaryConfig.Value.CloudName,
@@ -142,6 +148,57 @@ namespace MissionControlApp.API.Controllers
                 return BadRequest("Failed to remove the roles");
 
             return Ok(await _userManager.GetRolesAsync(user));
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPost("editMissionTeamMembers/{missionId}")]
+        public async Task<IActionResult> EditMissionTeamMembers(int missionId, 
+            MissionTeamMemberEditDto missionTeamMemberEditDto)
+        {
+            var missionTeam = await _missionControlRepo.GetMissionTeam(missionId);
+            var activeMissionTeamMembers = missionTeam.Where(u => u.Active == true).Select(i => i.UserId);
+            var selectedMissionTeamMembers = missionTeamMemberEditDto.MissionTeamMemberUserIds;
+
+            // this result is returning team members that are no longer team members so foreach we need to deactivate
+            var activeMissionTeamMembersResult = activeMissionTeamMembers.Except(selectedMissionTeamMembers);
+
+            foreach(var teamMemberUserId in activeMissionTeamMembersResult.Distinct()) 
+            {
+                var missionTeamMemberToDeactivate = await _missionControlRepo.GetMissionTeamMember(missionId, teamMemberUserId);
+                missionTeamMemberToDeactivate.Active = false;
+
+                if(await _missionControlRepo.SaveAll() == false)
+                    return BadRequest("Failed to deactivate Mission Team Member");
+            }
+
+            selectedMissionTeamMembers = selectedMissionTeamMembers ?? new int[] { };
+            // this result is returning new team member so foreach we need to add new
+            var selectedMissionTeamMemberResult = selectedMissionTeamMembers.Except(activeMissionTeamMembers);
+
+            foreach(var teamMemberUserId in selectedMissionTeamMemberResult.Distinct())
+            {
+                var teamMember = await _missionControlRepo.GetMissionTeamMember(missionId, teamMemberUserId);
+                if(teamMember != null)
+                {
+                    teamMember.Active = true;
+                }
+                else
+                {
+                    var missionTeamMemberToAdd = new MissionTeam() {
+                        UserId = teamMemberUserId,
+                        MissionId = missionId,
+                        Active = true
+                    };
+                    _missionControlRepo.Add(missionTeamMemberToAdd);
+                }
+
+                if(await _missionControlRepo.SaveAll() == false)
+                        return BadRequest("Failed to add Mission Team Member");
+            }
+
+            var missionTeamFromRepo = await _missionControlRepo.GetMissionTeam(missionId);
+            var missionTeamToReturn  = _mapper.Map<IEnumerable<MissionTeamToReturnDto>>(missionTeamFromRepo);
+            return Ok(missionTeamToReturn);
         }
 
         [Authorize(Policy = "ModeratePhotoRole")]

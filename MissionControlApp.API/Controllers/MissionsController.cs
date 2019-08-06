@@ -122,7 +122,7 @@ namespace MissionControlApp.API.Controllers
                             Active = platform.Active
                         }).ToList(),
                     MissionTeam = 
-                        (from missionTeam in mission.MissionTeam.ToList()
+                        (from missionTeam in mission.MissionTeam.Where(a => a.Active == true).ToList()
                         select new MissionTeamToReturnDto
                         {
                             Id = missionTeam.Id,

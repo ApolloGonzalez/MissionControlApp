@@ -23,6 +23,26 @@ namespace MissionControlApp.API.Helpers
                 .ForMember(dest => dest.Age, opt => {
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
+
+            CreateMap<MissionTeam, MissionTeamToReturnDto>()
+                .ForMember(m => m.Username, opt => opt
+                    .MapFrom(u => u.User.UserName))
+                .ForMember(m => m.Gender, opt => opt
+                    .MapFrom(u => u.User.Gender))
+                .ForMember(m => m.Age, opt => opt
+                    .MapFrom(u => u.User.DateOfBirth.CalculateAge()))
+                .ForMember(m => m.KnownAs, opt => opt
+                    .MapFrom(u => u.User.KnownAs))
+                .ForMember(m => m.Employee, opt => opt
+                    .MapFrom(u => u.User.Employee))
+                .ForMember(m => m.JobTitle, opt => opt
+                    .MapFrom(u => u.User.JobTitle))
+                .ForMember(m => m.PhotoUrl, opt => opt
+                    .MapFrom(u => u.User.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(m => m.Created, opt => opt
+                    .MapFrom(u => u.User.Created))
+                .ForMember(m => m.LastActive, opt => opt
+                    .MapFrom(u => u.User.LastActive));
             CreateMap<Accelerator, MissionAcceleratorToReturnDto>();
             CreateMap<Platform, PlatformToReturnDto>();
             CreateMap<BusinessFunction, BusinessFunctionToReturnDto>();

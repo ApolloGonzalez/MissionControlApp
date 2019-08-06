@@ -72,6 +72,16 @@ namespace MissionControlApp.API.Data
             return missionTeams;
         }
 
+        public async Task<MissionTeam> GetMissionTeamMember(int missionId, int teamMemberUserId)
+        {
+            var missionTeamMember =  await _context.MissionTeams
+                .Include(u => u.User)
+                .ThenInclude(p => p.Photos)
+                .Where(mt => mt.MissionId == missionId && mt.UserId == teamMemberUserId)
+                .FirstOrDefaultAsync();
+
+            return missionTeamMember;
+        }
         
         public async Task<IEnumerable<User>> GetMissionEmployees()
         {

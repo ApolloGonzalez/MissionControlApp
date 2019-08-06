@@ -64,7 +64,6 @@ import { UsersWithRolesResolver } from './_resolvers/users-with-roles.resolver';
 import { MissionsQueueResolver } from './_resolvers/missions-queue.resolver';
 import { MissionManagementComponent } from './admin/mission-management/mission-management.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { MissionTeamModalComponent } from './admin/mission-team-modal/mission-team-modal.component';
 import { MissionTeamManagementComponent } from './admin/mission-team-management/mission-team-management.component';
 
 export function tokenGetter() {
@@ -107,8 +106,7 @@ export function tokenGetter() {
     HasRoleDirective,
     UserManagementComponent,
     PhotoManagementComponent,
-    RolesModalComponent,
-    MissionTeamModalComponent
+    RolesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -156,8 +154,7 @@ export function tokenGetter() {
       AdminService
     ],
   entryComponents: [
-    RolesModalComponent,
-    MissionTeamModalComponent
+    RolesModalComponent
   ],
   bootstrap: [AppComponent]
 })

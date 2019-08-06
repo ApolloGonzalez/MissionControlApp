@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Mission } from 'src/app/_models/mission';
 import { AdminService } from 'src/app/_services/admin.service';
 import { MissionTeamMember } from 'src/app/_models/missionteammember';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
   selector: 'app-mission-team-management',
@@ -10,12 +11,34 @@ import { MissionTeamMember } from 'src/app/_models/missionteammember';
 })
 export class MissionTeamManagementComponent implements OnInit {
   @Input() mission: Mission;
-  missionTeamMembers: MissionTeamMember[];
+  missionTeamMembers: any[];
+  missionTeamUpdatedCount: any[];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.missionTeamMembers = this.getMissionTeamMembers(this.mission);
+    this.missionTeamUpdatedCount = this.mission.missionTeam;
+  }
+
+  updateMissionTeamMembers() {
+    const missionTeamMembersToUpdate = {
+      missionTeamMemberUserIds: this.missionTeamMembers.filter(el => el.checked === true).map(el => el.id)
+    };
+
+    this.missionTeamUpdatedCount = this.missionTeamMembers.filter(el => el.checked === true).map(el => el.id);
+
+    if (missionTeamMembersToUpdate) {
+      console.log(missionTeamMembersToUpdate);
+      this.adminService
+        .updateMissionTeamMembers(this.mission, missionTeamMembersToUpdate)
+        .subscribe((missionteammembers: any[]) => {
+          this.mission.missionTeam = missionteammembers;
+          this.alertify.success('Mission Team Has Been Updated');
+        }, error => {
+          console.log(error);
+        });
+    }
   }
 
   private getMissionTeamMembers(mission: Mission) {

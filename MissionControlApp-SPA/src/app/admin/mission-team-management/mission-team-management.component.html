@@ -1,28 +1,35 @@
 <h4 class="mt-2 ml-3">
-  Mission Team - {{missionTeamMembers.length}} Members Dedicated to your Mission
+  Mission Team {{missionTeamUpdatedCount.length}}
 </h4>
 
 <div class="row">
-  <div class="col-lg-2 col-md-3 col-sm-6 ml-3" *ngFor="let teamMember of missionTeamMembers | orderBy: 'checked' : true">
-    <div class="card mb-3">
-      <div class="card-img-wrapper">
-        <img class="card-img-top" src="{{teamMember.photoUrl || '../../../assets/user.png'}}"
-          alt="{{teamMember.knownAs}}">
-      </div>
-      <div class="card-body p-1">
-        <ul class="fa-ul p-0 m-0">
-          <li><i class="fa fa-user fa-1x fa-fw" style="color: #083f86;"></i> {{ teamMember.knownAs }}</li>
-          <li><i class="fa fa-flask fa-1x fa-fw" style="color: #083f86;"></i> {{ teamMember.jobTitle }}</li>
-          <li class="text-center">
-            <input
-              type="checkbox" 
-              value="teamMember.knownAs"
-              [checked]="teamMember.checked"
-              (change)="teamMember.checked = !teamMember.checked">
-          </li>
-        </ul>
-        
+  <form #rolesForm="ngForm" class="form-inline" id="missionTeamForm">
+    <div class="ml-4 mr-4" *ngFor="let teamMember of missionTeamMembers">
+      <div class="card mb-3">
+        <div class="card-img-wrapper">
+          <img class="card-img-top" src="{{teamMember.photoUrl || '../../../assets/user.png'}}"
+            alt="{{teamMember.knownAs}}">
+        </div>
+        <div class="card-body p-1">
+          <ul class="fa-ul p-0 m-0">
+            <li><i class="fa fa-user fa-1x fa-fw" style="color: #083f86;"></i> {{ teamMember.knownAs }}</li>
+            <li><i class="fa fa-flask fa-1x fa-fw" style="color: #083f86;"></i> {{ teamMember.jobTitle }}</li>
+            <li class="text-center">
+              <input type="checkbox" 
+                value="teamMember.id" 
+                [checked]="teamMember.checked"
+                (change)="teamMember.checked = !teamMember.checked">
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
+</div>
+<div class="row float-right">
+  <button type="button" 
+    class="btn btn-success" 
+    (click)="updateMissionTeamMembers()" 
+    form="missionTeamForm">Submit
+  </button>
 </div>
