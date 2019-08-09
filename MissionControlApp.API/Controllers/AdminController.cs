@@ -14,6 +14,7 @@ using CloudinaryDotNet.Actions;
 using System.Security.Claims;
 using AutoMapper;
 using System.Collections.Generic;
+using System;
 
 namespace MissionControlApp.API.Controllers
 {
@@ -22,6 +23,7 @@ namespace MissionControlApp.API.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IMissionControlRepository _missionControlRepo;
+        private readonly IAdminRepository _adminRepo;
         private readonly IMapper _mapper;
         private readonly DataContext _context;
         private readonly UserManager<User> _userManager;
@@ -30,6 +32,7 @@ namespace MissionControlApp.API.Controllers
 
         public AdminController(
             IMissionControlRepository missionControlRepo,
+            IAdminRepository adminRepo,
             IMapper mapper,
             DataContext context,
             UserManager<User> userManager,
@@ -39,6 +42,7 @@ namespace MissionControlApp.API.Controllers
             _cloudinaryConfig = cloudinaryConfig;
             _context = context;
             _missionControlRepo = missionControlRepo;
+            _adminRepo = adminRepo;
             _mapper = mapper;
 
             Account acc = new Account(
@@ -266,6 +270,52 @@ namespace MissionControlApp.API.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPost("CreateMissionAssessment")]
+        public async Task<IActionResult> CreateMissionAssessment(MissionAssessmentForCreateDto missionAssessmentForCreateDto)
+        {
+            var missionAssessment = _mapper.Map<MissionAssessment>(missionAssessmentForCreateDto);
+
+            _adminRepo.Add(missionAssessment);
+
+            if (await _adminRepo.SaveAll())
+            {
+                var missionAssessmentToReturn = _mapper.Map<MissionAssessmentToReturnDto>(missionAssessment);
+
+                return CreatedAtRoute("GetMissionAssessment", 
+                    new {missionAssessmentId = missionAssessment.Id}, missionAssessmentToReturn);
+            }
+            throw new Exception("Creating the mission assessment failed on save");
+        }
+
+        [HttpPut("editmissionassessment")]
+        public async Task<IActionResult> UpdateMissionAssessment(MissionAssessmentForUpdateDto missionAssessmentForUpdateDto)
+        {
+            /* id is the userid of the active user if needed
+                if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized(); */
+            var missionAssessmentId = missionAssessmentForUpdateDto.Id;
+            var missionAssessmentFromRepo = await _adminRepo.GetMissionAssessment(missionAssessmentId);
+
+            _mapper.Map(missionAssessmentForUpdateDto, missionAssessmentFromRepo);
+
+            if (await _adminRepo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Mission Assessment {missionAssessmentId} failed on save.");
+        }
+
+        [HttpGet("missionassessment/{missionAssessmentId}", Name = "GetMissionAssessment")]
+        public async Task<IActionResult> GetMissionAssessment(int missionAssessmentId)
+        {            
+            var userId =  int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var missionAssessment = await _adminRepo.GetMissionAssessment(missionAssessmentId);
+
+            var missionAssessmentToReturn = _mapper.Map<MissionAssessmentToReturnDto>(missionAssessment);
+            
+            return Ok(missionAssessmentToReturn);
         }
     }
 }

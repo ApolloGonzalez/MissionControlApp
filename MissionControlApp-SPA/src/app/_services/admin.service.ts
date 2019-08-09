@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '../../../node_modules/@angular/common/http';
 import { User } from '../_models/user';
 import { Mission } from '../_models/mission';
+import { Assessment } from '../_models/assessment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class AdminService {
 
   getMissionTeam(missionId: number) {
     return this.http.get(this.baseUrl + 'admin/missionTeam/' + missionId);
+  }
+
+  getMissionAssessment(missionAssessmentId: number) {
+    return this.http.get(this.baseUrl + 'admin/missionassessment/' + missionAssessmentId);
   }
 
   getMissionEmployees() {
@@ -30,6 +35,10 @@ export class AdminService {
 
   updateMissionTeamMembers(mission: Mission, missionTeamUserIds: {}) {
     return this.http.post(this.baseUrl + 'admin/editMissionTeamMembers/' + mission.missionId, missionTeamUserIds);
+  }
+
+  updateMissionAssessment(missionAssessment: Assessment) {
+    return this.http.put(this.baseUrl + 'admin/editMissionAssessment', missionAssessment);
   }
 
   getPhotosForApproval() {

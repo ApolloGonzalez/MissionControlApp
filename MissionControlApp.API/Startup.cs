@@ -98,6 +98,7 @@ namespace MissionControlApp.API
             services.AddAutoMapper();
             services.AddTransient<Seed>();
             services.AddScoped<IMissionControlRepository, MissionControlRepository>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<LogUserActivity>();
         }
 

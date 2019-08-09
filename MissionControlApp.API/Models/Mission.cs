@@ -21,6 +21,7 @@ namespace MissionControlApp.API.Models
         public ICollection<MissionAccelerator> MissionAccelerators { get; set; }
         public ICollection<MissionPlatform> MissionPlatforms { get; set; }
         public ICollection<MissionTeam> MissionTeam { get; set; }
+        public MissionAssessment MissionAssessment { get; set; }
         public bool Public { get; set; }
         public DateTime? DateCreated { get; set; }
         public bool Active { get; set; }

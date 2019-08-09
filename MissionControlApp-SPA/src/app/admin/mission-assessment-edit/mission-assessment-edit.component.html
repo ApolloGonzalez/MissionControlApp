@@ -1,0 +1,47 @@
+<h4 class="mt-2 ml-1 mb-3">
+  Mission Assessment
+</h4>
+<div class="row">
+  <div class="col-sm-8">
+    <div *ngIf="editMissionAssessmentForm.dirty" class="alert alert-info">
+      <strong>Information:</strong> You have made changes.  Any unsaved changes will be lost!
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col ml-1">
+    <form #editMissionAssessmentForm="ngForm" id="editMissionAssessmentForm" (ngSubmit)="updateMissionAssessment()">
+      <h5>Data Location</h5>
+      <textarea class="form-control" name="dataLocation" rows="2"
+        [(ngModel)]="missionAssessment.dataLocation"></textarea>
+      <h5 class="mt-3">Data Type</h5>
+      <textarea class="form-control" name="dataType" rows="2"
+        [(ngModel)]="missionAssessment.dataType"></textarea>        
+      <h5 class="mt-3">Data Domain Expert</h5>
+      <textarea class="form-control" name="dataDomainExpert" rows="2"
+        [(ngModel)]="missionAssessment.dataDomainExpert"></textarea>
+      <h5 class="mt-3">Data Quality</h5>
+      <textarea class="form-control" name="dataQuality" rows="2"
+        [(ngModel)]="missionAssessment.dataQuality"></textarea>
+      <h5 class="mt-3">Challenge Solution (Propose a solution to the challenge)</h5>
+      <textarea class="form-control" name="challengeSolution" rows="2"
+        [(ngModel)]="missionAssessment.challengeSolution"></textarea>
+      <h5 class="mt-3">Challenge Type (What is the type of challenge?)</h5>
+      <textarea class="form-control" name="challengeType" rows="2"
+        [(ngModel)]="missionAssessment.challengeType"></textarea>
+      <h5 class="mt-3">Infrastructure Requirements</h5>
+      <textarea class="form-control" name="infrastructureRequirement" rows="2"
+        [(ngModel)]="missionAssessment.infrastructureRequirement"></textarea>
+      <h5 class="mt-3">Solution Accuracy (How accurate does the ML model need to be)</h5>
+      <textarea class="form-control" name="accuracyRequirement" rows="2"
+        [(ngModel)]="missionAssessment.accuracyRequirement"></textarea>
+    </form>
+  </div>
+</div>
+<div class="row float-right">
+  <div class="col-sm-12">
+    <button [disabled]="!editMissionAssessmentForm.dirty" 
+      form="editMissionAssessmentForm" 
+      class="btn btn-success btn-block mt-3">Save Changes</button>
+  </div>
+</div>

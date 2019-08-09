@@ -65,6 +65,8 @@ import { MissionsQueueResolver } from './_resolvers/missions-queue.resolver';
 import { MissionManagementComponent } from './admin/mission-management/mission-management.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { MissionTeamManagementComponent } from './admin/mission-team-management/mission-team-management.component';
+import { MissionAssessmentEditComponent } from './admin/mission-assessment-edit/mission-assessment-edit.component';
+import { MissionCreateAssessmentComponent } from './admin/mission-create-assessment/mission-create-assessment.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -90,6 +92,8 @@ export function tokenGetter() {
     MissionDetailComponent,
     MissionNavComponent,
     MissionAssessmentInsightsComponent,
+    MissionAssessmentEditComponent,
+    MissionCreateAssessmentComponent,
     MissionProjectLifecycleComponent,
     MissionTeamListComponent,
     MissionTeamMemberCardComponent,

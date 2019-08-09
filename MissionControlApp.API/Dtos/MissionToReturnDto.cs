@@ -21,6 +21,7 @@ namespace MissionControlApp.API.Dtos
         public string DesiredOutcome { get; set; }
         public string BusinessImpact { get; set; }
         public int TimeFrame { get; set; }
+        public MissionAssessmentToReturnDto MissionAssessment { get; set; }
         public ICollection<MissionAcceleratorToReturnDto> Accelerators { get; set; }
         public ICollection<MissionPlatformToReturnDto> Platforms { get; set; }
         public ICollection<MissionTeamToReturnDto> MissionTeam { get; set; }

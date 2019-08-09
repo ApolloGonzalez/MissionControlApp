@@ -13,10 +13,10 @@ namespace MissionControlApp.API.Dtos
         public DateTime? DateCreated { get; set; }
         public bool Active { get; set; }
 
-        public MissionPlatformToReturnDto()
+/*         public MissionPlatformToReturnDto()
         {
             DateCreated = DateTime.Now;
             Active = true;
-        }  
+        }   */
     }
 }

@@ -95,6 +95,7 @@ namespace MissionControlApp.API.Controllers
                 Challenge = mission.Challenge,
                 DesiredOutcome = mission.DesiredOutcome,
                 BusinessImpact = mission.BusinessImpact,
+                MissionAssessment = _mapper.Map<MissionAssessmentToReturnDto>(mission.MissionAssessment),
                 TimeFrame = mission.TimeFrame,
                 Accelerators = 
                     (from accelerator in mission.MissionAccelerators.Select(a => a.Accelerator).ToList() 
@@ -307,7 +308,7 @@ namespace MissionControlApp.API.Controllers
         {
             var missionTeam = await _repo.GetMissionTeam(missionId);
 
-            var missionTeamToReturn = (from teamMember in missionTeam
+            var missionTeamToReturn = (from teamMember in missionTeam.Where(a => a.Active == true)
                 select new MissionTeamToReturnDto 
                 {
                     Id = teamMember.Id,

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MissionControlApp.API.Data;
 
 namespace MissionControlApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190806223118_MissionAssessment")]
+    partial class MissionAssessment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,14 +294,10 @@ namespace MissionControlApp.API.Migrations
 
                     b.Property<DateTime?>("UpdateDateTime");
 
-                    b.Property<int>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MissionId")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("MissionAssessments");
                 });
@@ -622,11 +620,6 @@ namespace MissionControlApp.API.Migrations
                         .WithOne("MissionAssessment")
                         .HasForeignKey("MissionControlApp.API.Models.MissionAssessment", "MissionId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("MissionControlApp.API.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MissionControlApp.API.Models.MissionPlatform", b =>

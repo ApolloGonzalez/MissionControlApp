@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MissionControlApp.API.Helpers;
 using MissionControlApp.API.Models;
 using Microsoft.EntityFrameworkCore;
-using MissionControlApp.API.Dtos;
 
 namespace MissionControlApp.API.Data
 {
@@ -24,6 +23,11 @@ namespace MissionControlApp.API.Data
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
+        }
+
+         public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<Industry> GetIndustry(int industryId)
@@ -99,6 +103,7 @@ namespace MissionControlApp.API.Data
                 .Include(u => u.User)
                 .Include(b => b.BusinessFunction)
                 .Include(i => i.Industry)
+                .Include(a => a.MissionAssessment)
                 .Include(ma => ma.MissionAccelerators)
                 .ThenInclude(a => a.Accelerator)
                 .Include(mp => mp.MissionPlatforms)
@@ -236,11 +241,6 @@ namespace MissionControlApp.API.Data
             {
                 return user.Likees.Where(u => u.LikerId == id).Select(i => i.LikeeId);
             }
-        }
-
-        public async Task<bool> SaveAll()
-        {
-            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<Message> GetMessage(int id)

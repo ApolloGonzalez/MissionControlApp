@@ -1,6 +1,7 @@
 import { Accelerator } from './accelerator';
 import { Platform } from './platform';
 import { MissionTeamMember } from './missionteammember';
+import { Assessment } from './assessment';
 
 export interface Mission {
     missionId: number;
@@ -19,5 +20,6 @@ export interface Mission {
     accelerators?: Accelerator[];
     platforms?: Platform[];
     missionTeam?: MissionTeamMember[];
+    missionAssessment?: Assessment;
     public: boolean;
 }

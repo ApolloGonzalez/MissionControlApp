@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Mission } from 'src/app/_models/mission';
 import { AdminService } from 'src/app/_services/admin.service';
-import { MissionTeamMember } from 'src/app/_models/missionteammember';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
@@ -12,13 +11,13 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 export class MissionTeamManagementComponent implements OnInit {
   @Input() mission: Mission;
   missionTeamMembers: any[];
-  missionTeamUpdatedCount: any[];
+  missionTeamCount: any[];
 
   constructor(private adminService: AdminService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.missionTeamMembers = this.getMissionTeamMembers(this.mission);
-    this.missionTeamUpdatedCount = this.mission.missionTeam;
+    this.missionTeamCount = this.mission.missionTeam;
   }
 
   updateMissionTeamMembers() {
@@ -26,10 +25,9 @@ export class MissionTeamManagementComponent implements OnInit {
       missionTeamMemberUserIds: this.missionTeamMembers.filter(el => el.checked === true).map(el => el.id)
     };
 
-    this.missionTeamUpdatedCount = this.missionTeamMembers.filter(el => el.checked === true).map(el => el.id);
+    this.missionTeamCount = this.missionTeamMembers.filter(el => el.checked === true).map(el => el.id);
 
     if (missionTeamMembersToUpdate) {
-      console.log(missionTeamMembersToUpdate);
       this.adminService
         .updateMissionTeamMembers(this.mission, missionTeamMembersToUpdate)
         .subscribe((missionteammembers: any[]) => {
