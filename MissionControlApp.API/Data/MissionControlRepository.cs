@@ -97,6 +97,15 @@ namespace MissionControlApp.API.Data
             return users;
         }
 
+        public async Task<MissionAssessment> GetMissionAssessment(int userId, int missionId)
+        {
+            return await _context.MissionAssessments
+                .Include(u => u.User)
+                .Include(m => m.Mission)
+                // .FirstOrDefaultAsync(i => i.Id == missionId && i.Mission.UserId == userId);
+                .FirstOrDefaultAsync(i => i.MissionId == missionId && i.Mission.UserId == userId);
+        }
+
         public async Task<Mission> GetMission(int userId, int missionId)
         {
             return await _context.Missions

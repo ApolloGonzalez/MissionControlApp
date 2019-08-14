@@ -41,6 +41,10 @@ export class AdminService {
     return this.http.put(this.baseUrl + 'admin/editMissionAssessment', missionAssessment);
   }
 
+  createMissionAssessment(missionAssessment: Assessment) {
+    return this.http.post(this.baseUrl + 'admin/createmissionassessment', missionAssessment);
+  }
+
   getPhotosForApproval() {
     return this.http.get(this.baseUrl + 'admin/photosForModeration');
   }

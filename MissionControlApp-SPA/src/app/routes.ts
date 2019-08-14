@@ -32,6 +32,8 @@ import { UsersWithRolesResolver } from './_resolvers/users-with-roles.resolver';
 import { MissionsQueueResolver } from './_resolvers/missions-queue.resolver';
 import { MissionManagementComponent } from './admin/mission-management/mission-management.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { MissionAssessmentResolver } from './_resolvers/mission-assessment.resolver';
+import { MissionDashboardComponent } from './missions/mission-dashboard/mission-dashboard.component';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -62,12 +64,17 @@ export const appRoutes: Routes = [
                 children: [
                     {
                         path: '',
+                        component: MissionDashboardComponent
+                    },
+                    {
+                        path: 'onboarding',
                         component: MissionDetailComponent,
                         resolve: {mission: MissionDetailResolver}
                     },
                     {
                         path: 'assessment',
-                        component: MissionAssessmentInsightsComponent
+                        component: MissionAssessmentInsightsComponent,
+                        resolve: {missionassessment: MissionAssessmentResolver}
                     },
                     {
                         path: 'missionlifecycle',

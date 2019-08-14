@@ -1,6 +1,9 @@
 <div class="sidebar">
   <a [routerLink]="['../' + missionId]" routerLinkActive="active" >
-    <i class="fa fa-info-circle fa-fw"></i>&nbsp; Mission Details
+    <i class="fa fa-dashboard fa-fw"></i>&nbsp; Mission Dashboard
+  </a>
+  <a [routerLink]="['../' + missionId + '/onboarding']" routerLinkActive="active" >
+    <i class="fa fa-info-circle fa-fw"></i>&nbsp; Onboarding Details
   </a>
   <a [routerLink]="['../' + missionId + '/assessment']" routerLinkActive="active" >
     <i class="fa fa-search fa-fw"></i>&nbsp; Assessment Insights
@@ -16,6 +19,6 @@
   <a href="#ideas"><i class="fa fa-lightbulb-o fa-fw"></i>&nbsp; Ideation</a>
   <a href="#governance"><i class="fa fa-bank fa-fw"></i>&nbsp; Governance</a>
   <a href="#sla"><i class="fa fa-handshake-o fa-fw"></i>&nbsp; SLA Management</a>
-  <a href="#supportplatform"><i class="fa fa-server fa-fw"></i>&nbsp; Ai Platform Details</a>
+  <a href="#supportplatform"><i class="fa fa-server fa-fw"></i>&nbsp; AI Platform Details</a>
   <a href="#support"><i class="fa fa-support fa-fw"></i>&nbsp; Support</a>
 </div>

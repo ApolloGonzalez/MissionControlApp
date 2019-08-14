@@ -1,3 +1,75 @@
-<div class="jumbotron mt-2" style="padding: 15px;">
-  mission-assessment-insights works!
-</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card bg-light mt-2 mb-3" style="max-width: 100%;">
+      <div class="card-header" style="clear: both; line-height: 0; padding-top: 15px; padding-bottom: 15px;">
+        <div class="float-left text-capitalize" style="font-size:x-large;">
+          <i class="fa fa-search" style="color: #083f86;"></i>
+          Mission Assessment Insights
+        </div>
+        <div class="float-right" style="padding-top: 5px;">
+          <b>Created:</b> {{missionAssessment.dateCreated | timeAgo }}
+          <div class="mt-3">
+            <b>Create by:</b> {{missionAssessment.user.knownAs}}
+          </div>
+        </div>
+      </div>
+      <div class="container mb-3">
+        <div class="col-sm-12">
+          <h4 class="card-title mb-0 mt-3 d-inline-block">Data Location</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">
+            {{missionAssessment.dataLocation}}
+          </p>
+
+          <h4 class="card-title mb-0 d-inline-block">Data Type</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{missionAssessment.dataType}}
+          </p>
+
+          <h4 class="card-title mb-0 d-inline-block">Domain Experts</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{missionAssessment.dataDomainExpert}}
+          </p>
+
+          <h4 class="card-title mb-0 d-inline-block">Data Quality</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{missionAssessment.dataQuality}}</p>
+
+          <h4 class="card-title mb-0 d-inline-block">Challenge Solution Type</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{missionAssessment.challengeType}}</p>
+
+          <h4 class="card-title mb-0 d-inline-block">Proposed Challenge Solution</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{missionAssessment.challengeSolution}}
+          </p>
+
+          <h4 class="card-title mb-0 d-inline-block">Infrastructure Requirements</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">
+            {{missionAssessment.infrastructureRequirement}}</p>
+
+          <h4 class="card-title mb-0 d-inline-block">Accuracy Requirements</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="How accurate should the model be."
+            style="color: #083f86;"></i>
+          <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{missionAssessment.accuracyRequirement}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>

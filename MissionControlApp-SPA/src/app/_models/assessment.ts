@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export interface Assessment {
     id: number;
     userId: number;
@@ -12,4 +14,5 @@ export interface Assessment {
     accuracyRequirement: string;
     active: boolean;
     dateCreated: Date;
+    user: User;
 }

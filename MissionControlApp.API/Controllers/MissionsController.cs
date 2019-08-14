@@ -330,6 +330,18 @@ namespace MissionControlApp.API.Controllers
             return Ok(missionTeamToReturn);
         }
 
+        [HttpGet("{missionId}/assessment", Name = "GetAssessment")]
+        public async Task<IActionResult> GetMissionAssessment(int missionId)
+        {            
+            var userId =  int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var missionAssessment = await _repo.GetMissionAssessment(userId, missionId);
+
+            var missionAssessmentToReturn = _mapper.Map<MissionAssessmentToReturnDto>(missionAssessment);
+            
+            return Ok(missionAssessmentToReturn);
+        }
+
         [HttpGet("industries", Name = "GetIndustries")]
         public async Task<IActionResult> GetIndustries()
         {

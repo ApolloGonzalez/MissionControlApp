@@ -8,6 +8,7 @@ import { Mission } from '../_models/mission';
 import { Platform } from '../_models/platform';
 import { MissionCreateFormLists } from '../_models/missioncreateformlists';
 import { MissionTeamMember } from '../_models/missionteammember';
+import { Assessment } from '../_models/assessment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,11 @@ export class MissionService {
   getMissionTeam(userId: number, id: number): Observable<MissionTeamMember> {
     return this.http
       .get<MissionTeamMember>(this.baseUrl + 'users/' + userId + '/missions/' + id + '/missionteam');
+  }
+
+  getMissionAssessment(userId: number, id: number): Observable<Assessment> {
+    return this.http
+      .get<Assessment>(this.baseUrl + 'users/' + userId + '/missions/' + id + '/assessment');
   }
 
   getMission(userId: number, id: number): Observable<Mission> {

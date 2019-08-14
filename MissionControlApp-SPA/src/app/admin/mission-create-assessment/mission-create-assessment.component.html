@@ -1,3 +1,35 @@
-<p>
-  mission-create-assessment works!
-</p>
+<h4 class="mt-2 ml-1 mb-3">
+  Create Mission Assessment
+</h4>
+
+<div class="row">
+  <div class="col ml-1">
+    <form [formGroup]="missionAssessmentForm" (ngSubmit)="createMissionAssessment()">
+      <h5>Data Location</h5>
+      <textarea class="form-control" formControlName="dataLocation" rows="2">
+          </textarea>
+      <h5 class="mt-3">Data Type</h5>
+      <textarea class="form-control" formControlName="dataType" rows="2"></textarea>
+      <h5 class="mt-3">Data Domain Expert</h5>
+      <textarea class="form-control" formControlName="dataDomainExpert" rows="2"></textarea>
+      <h5 class="mt-3">Data Quality</h5>
+      <textarea class="form-control" formControlName="dataQuality" rows="2"></textarea>
+      <h5 class="mt-3">Challenge Solution (Propose a solution to the challenge)</h5>
+      <textarea class="form-control" formControlName="challengeSolution" rows="2"></textarea>
+      <h5 class="mt-3">Challenge Type (What is the type of challenge?)</h5>
+      <textarea class="form-control" formControlName="challengeType" rows="2"></textarea>
+      <h5 class="mt-3">Infrastructure Requirements</h5>
+      <textarea class="form-control" formControlName="infrastructureRequirement" rows="2"></textarea>
+      <h5 class="mt-3">Solution Accuracy (How accurate does the ML model need to be)</h5>
+      <textarea class="form-control" formControlName="accuracyRequirement" rows="2"></textarea>
+      <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group float-right mt-3">
+              <button class="btn btn-primary" [disabled]="!missionAssessmentForm.valid" type="submit">Create</button>
+              <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>

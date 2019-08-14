@@ -20,5 +20,5 @@ export class MissionTeamListComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.teamMembers = data['missionteammembers'];
     });
-    }
+  }
 }
