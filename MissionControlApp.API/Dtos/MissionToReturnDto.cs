@@ -20,6 +20,9 @@ namespace MissionControlApp.API.Dtos
         public string Challenge { get; set; }
         public string DesiredOutcome { get; set; }
         public string BusinessImpact { get; set; }
+        public ulong EstimatedRoi { get; set; }
+        public ulong ActualRoi { get; set; }
+        public ulong ActualCost { get; set; }
         public int TimeFrame { get; set; }
         public MissionAssessmentToReturnDto MissionAssessment { get; set; }
         public ICollection<MissionAcceleratorToReturnDto> Accelerators { get; set; }

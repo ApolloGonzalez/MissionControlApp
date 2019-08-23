@@ -17,7 +17,12 @@
       <div class="tab-panel border-0">
         <tabset class="mission-management-tabset" #missionManagementTabs>
           <tab heading="Summary">
-            Summary Page
+            <div class="mt-3">
+              <span>
+                Review the <b>{{mission.missionName}}</b> mission details and select the appropriate Mission Team.
+                Once the Mission Team is selected be sure to complete the Mission Assessment. 
+              </span>
+            </div>
           </tab>
           <tab>
             <ng-template tabHeading>
@@ -40,6 +45,12 @@
                 <div class="col-sm-12">
                   <h4 class="card-title mb-0">Business Impact</h4>
                   <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{mission.businessImpact}}</p>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-sm-6">
+                  <h4 class="card-title mb-0">Estimated ROI</h4>
+                  <p class="card-text alert alert-light mt-0">{{mission.estimatedRoi | currency}}</p>
                 </div>
               </div>
               <div class="row mt-2">

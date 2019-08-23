@@ -10,6 +10,7 @@ export interface Assessment {
     challengeSolution: string;
     dataQuality: string;
     challengeType: string;
+    estimatedCost: number;
     infrastructureRequirement: string;
     accuracyRequirement: string;
     active: boolean;

@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MissionControlApp.API.Dtos;
+using MissionControlApp.API.Helpers;
 using MissionControlApp.API.Models;
 
 namespace MissionControlApp.API.Data
@@ -36,6 +38,41 @@ namespace MissionControlApp.API.Data
                 .Include(u => u.User)
                 .Include(m => m.Mission)
                 .FirstOrDefaultAsync(i => i.Id == missionAssessmentId);
+        }
+
+         public async Task<PagedList<Mission>> GetMissionsInQueue(MissionParams missionParams)
+        {
+            var missions = _context.Missions
+                .Include(u => u.User)
+                .Include(b => b.BusinessFunction)
+                .Include(i => i.Industry)
+                .Include(ma => ma.MissionAccelerators)
+                .ThenInclude(a => a.Accelerator)
+                .Include(mp => mp.MissionPlatforms)
+                .ThenInclude(p => p.Platform)
+                .Include(mt => mt.MissionTeam)
+                .ThenInclude(u => u.User)
+                .ThenInclude(p => p.Photos)
+                .AsQueryable();
+
+            return await PagedList<Mission>.CreateAsync(missions, missionParams.PageNumber, missionParams.PageSize);
+        }
+
+        public async Task<Mission> GetMission(int missionId)
+        {
+            return await _context.Missions
+                .Include(u => u.User)
+                .Include(b => b.BusinessFunction)
+                .Include(i => i.Industry)
+                .Include(a => a.MissionAssessment)
+                .Include(ma => ma.MissionAccelerators)
+                .ThenInclude(a => a.Accelerator)
+                .Include(mp => mp.MissionPlatforms)
+                .ThenInclude(p => p.Platform)
+                .Include(mt => mt.MissionTeam)
+                .ThenInclude(mu => mu.User)
+                .ThenInclude(p => p.Photos)
+                .FirstOrDefaultAsync(i => i.Id == missionId);
         }
     }
 }

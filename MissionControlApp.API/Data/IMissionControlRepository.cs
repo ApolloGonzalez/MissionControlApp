@@ -26,7 +26,6 @@ namespace MissionControlApp.API.Data
         Task<IEnumerable<Accelerator>> GetAcceleratorsByBusinessFunctionAndIndustry(int businessFunctionId, int industryId);
         Task<Mission> GetMission(int userId, int missionId);
         Task<PagedList<Mission>> GetMissions(MissionParams missionParams);
-        Task<PagedList<Mission>> GetMissionsInQueue(MissionParams missionParams);
         Task<IEnumerable<MissionTeam>> GetMissionTeam(int missionId);
         Task<MissionTeam> GetMissionTeamMember(int missionId, int teamMemberUserId);
         Task<IEnumerable<User>> GetMissionEmployees();

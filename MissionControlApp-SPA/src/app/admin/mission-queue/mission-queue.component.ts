@@ -3,9 +3,9 @@ import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { Mission } from 'src/app/_models/mission';
 import { User } from 'src/app/_models/user';
 import { AuthService } from 'src/app/_services/auth.service';
-import { MissionService } from 'src/app/_services/mission.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-mission-queue',
@@ -19,7 +19,7 @@ export class MissionQueueComponent implements OnInit {
   missionParams: any = {};
   pagination: Pagination;
 
-  constructor(private authService: AuthService, private missionService: MissionService,
+  constructor(private authService: AuthService, private adminService: AdminService,
     private alertify: AlertifyService,
     private route: ActivatedRoute) { }
 
@@ -48,7 +48,7 @@ export class MissionQueueComponent implements OnInit {
   }
 
   loadMissions() {
-     this.missionService.getMissions(this.authService.decodedToken.nameid,
+     this.adminService.getMissionsInQueue(this.authService.decodedToken.nameid,
         this.pagination.currentPage,
         this.pagination.itemsPerPage,
         this.missionParams)

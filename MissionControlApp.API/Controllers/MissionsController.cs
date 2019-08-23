@@ -38,6 +38,9 @@ namespace MissionControlApp.API.Controllers
                 IndustryId = missionForCreateDto.IndustryId,
                 BusinessFunctionId = missionForCreateDto.BusinessFunctionId,
                 DesiredOutcome = missionForCreateDto.DesiredOutcome,
+                EstimatedRoi = missionForCreateDto.EstimatedRoi,
+                ActualRoi = missionForCreateDto.ActualRoi,
+                ActualCost = missionForCreateDto.ActualCost,
                 Challenge = missionForCreateDto.Challenge,
                 BusinessImpact = missionForCreateDto.BusinessImpact,
                 TimeFrame = missionForCreateDto.TimeFrame,
@@ -95,6 +98,9 @@ namespace MissionControlApp.API.Controllers
                 Challenge = mission.Challenge,
                 DesiredOutcome = mission.DesiredOutcome,
                 BusinessImpact = mission.BusinessImpact,
+                EstimatedRoi = mission.EstimatedRoi,
+                ActualRoi = mission.ActualRoi,
+                ActualCost = mission.ActualCost,
                 MissionAssessment = _mapper.Map<MissionAssessmentToReturnDto>(mission.MissionAssessment),
                 TimeFrame = mission.TimeFrame,
                 Accelerators = 
@@ -171,6 +177,9 @@ namespace MissionControlApp.API.Controllers
                     Challenge = mission.Challenge,
                     DesiredOutcome = mission.DesiredOutcome,
                     BusinessImpact = mission.BusinessImpact,
+                    EstimatedRoi = mission.EstimatedRoi,
+                    ActualRoi = mission.ActualRoi,
+                    ActualCost = mission.ActualCost,
                     TimeFrame = mission.TimeFrame,
                     Accelerators = 
                         (from accelerator in mission.MissionAccelerators.Select(a => a.Accelerator).ToList() 
@@ -215,87 +224,6 @@ namespace MissionControlApp.API.Controllers
                     Active = mission.Active,
                     Public = mission.Public
                 }).OrderByDescending(cr => cr.DateCreated);
-
-            Response.AddPagination(missions.CurrentPage, missions.PageSize,
-                missions.TotalCount, missions.TotalPages);
-
-            return Ok(missionsToReturn);
-        }
-
-        [Authorize(Policy = "ManageMissionQueueRole")]
-        [HttpGet("GetMissionsInQueue")]
-        public async Task<IActionResult> GetMissionsInQueue([FromQuery]MissionParams missionParams)
-        {
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-            missionParams.UserId = currentUserId;
-            
-            var missions = await _repo.GetMissionsInQueue(missionParams);
-
-            var missionsToReturn = (from mission in missions
-                select new MissionToReturnDto 
-                {
-                    UserId = mission.UserId,
-                    UserName = mission.User.UserName,
-                    KnownAs = mission.User.KnownAs,
-                    Employee = mission.User.Employee,
-                    JobTitle = mission.User.JobTitle,
-                    MissionId = mission.Id,
-                    MissionName = mission.MissionName,
-                    IndustryId = mission.IndustryId,
-                    IndustryAlias = mission.Industry.IndustryAlias,
-                    BusinessFunctionId = mission.BusinessFunctionId,
-                    BusinessFunctionAlias = mission.BusinessFunction.BusinessFunctionAlias,
-                    Challenge = mission.Challenge,
-                    DesiredOutcome = mission.DesiredOutcome,
-                    BusinessImpact = mission.BusinessImpact,
-                    TimeFrame = mission.TimeFrame,
-                    Accelerators = 
-                        (from accelerator in mission.MissionAccelerators.Select(a => a.Accelerator).ToList() 
-                        select new MissionAcceleratorToReturnDto
-                        { 
-                            Id = accelerator.Id,
-                            MissionId = mission.Id,
-                            AcceleratorName = accelerator.AcceleratorName,
-                            ModelType = accelerator.ModelType,
-                            DateCreated = accelerator.DateCreated,
-                            Description = accelerator.Description,
-                            Active = accelerator.Active
-                        }).ToList(),
-                    Platforms = 
-                        (from platform in mission.MissionPlatforms.Select(a => a.Platform).ToList() 
-                        select new MissionPlatformToReturnDto
-                        { 
-                            Id = platform.Id,
-                            MissionId = platform.Id,
-                            PlatformName = platform.PlatformName,
-                            PlatformAlias = platform.PlatformAlias,
-                            Description = platform.Description,
-                            Type = platform.Type,
-                            DateCreated = platform.DateCreated,
-                            Active = platform.Active
-                        }).ToList(),
-                    MissionTeam = 
-                        (from missionTeam in mission.MissionTeam.ToList()
-                        select new MissionTeamToReturnDto
-                        {
-                            Id = missionTeam.Id,
-                            UserId = missionTeam.UserId,
-                            MissionId = missionTeam.MissionId,
-                            Username = missionTeam.User.UserName,
-                            KnownAs = missionTeam.User.KnownAs,
-                            Employee = missionTeam.User.Employee,
-                            JobTitle = missionTeam.User.JobTitle,
-                            Gender = missionTeam.User.Gender,
-                            City = missionTeam.User.City,
-                            Country = missionTeam.User.Country,
-                            Created = missionTeam.DateCreated,
-                            PhotoUrl = missionTeam.User.Photos.FirstOrDefault(p => p.IsMain).Url
-                        }).ToList(),                    
-                    DateCreated = mission.DateCreated,
-                    Active = mission.Active,
-                    Public = mission.Public
-                }).OrderBy(cr => cr.TimeFrame);
 
             Response.AddPagination(missions.CurrentPage, missions.PageSize,
                 missions.TotalCount, missions.TotalPages);

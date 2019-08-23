@@ -10,6 +10,7 @@ import { Industry } from 'src/app/_models/industry';
 import { MissionCreateFormLists } from 'src/app/_models/missioncreateformlists';
 import { Accelerator } from 'src/app/_models/accelerator';
 import { MissionService } from 'src/app/_services/mission.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-mission-create',
@@ -56,6 +57,10 @@ export class MissionCreateComponent implements OnInit {
       businessfunctionid: [''],
       industryid: [''],
       public: [''],
+      estimatedroi: ['',
+        [Validators.pattern('^[0-9]*$'),
+        Validators.minLength(2),
+        Validators.maxLength(18)]],
       missionaccelerators: new FormArray([])
     });
 

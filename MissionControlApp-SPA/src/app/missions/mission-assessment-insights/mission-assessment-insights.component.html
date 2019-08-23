@@ -43,7 +43,16 @@
             style="color: #083f86;"></i>
           <p class="card-text alert alert-light mt-0" style="padding: 20px;">{{missionAssessment.dataQuality}}</p>
 
-          <h4 class="card-title mb-0 d-inline-block">Challenge Solution Type</h4> &nbsp;
+          <h4 class="card-title mb-0 d-inline-block">Estimated Cost</h4> &nbsp;
+          <i class="fa fa-info-circle fa-1x fa-border m-1"
+            tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+            style="color: #083f86;"></i>
+          <div class="row mt-2">
+            <div class="col-sm-6">
+              <p class="card-text alert alert-light mt-0">{{missionAssessment.estimatedCost | currency}}</p>
+            </div>
+          </div>
+          <h4 class="card-title mb-0 d-inline-block mt-3">Challenge Solution Type</h4> &nbsp;
           <i class="fa fa-info-circle fa-1x fa-border m-1"
             tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
             style="color: #083f86;"></i>

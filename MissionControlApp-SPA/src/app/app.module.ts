@@ -2,14 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, 
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule,
     ButtonsModule, TooltipModule, ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
 import { OrderModule } from 'ngx-order-pipe';
+import {NgxMaskModule, IConfig} from 'ngx-mask';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -69,10 +70,13 @@ import { MissionAssessmentEditComponent } from './admin/mission-assessment-edit/
 import { MissionCreateAssessmentComponent } from './admin/mission-create-assessment/mission-create-assessment.component';
 import { MissionAssessmentResolver } from './_resolvers/mission-assessment.resolver';
 import { MissionDashboardComponent } from './missions/mission-dashboard/mission-dashboard.component';
+import { MissionManagementResolver } from './_resolvers/mission-management.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
   declarations: [
@@ -117,6 +121,7 @@ export function tokenGetter() {
   ],
   imports: [
     BrowserModule,
+    NgxMaskModule.forRoot(options),
     OrderModule,
     HttpClientModule,
     FormsModule,
@@ -158,6 +163,7 @@ export function tokenGetter() {
       MissionTeamListResolver,
       MissionsQueueResolver,
       MissionAssessmentResolver,
+      MissionManagementResolver,
       UsersWithRolesResolver,
       AdminService
     ],

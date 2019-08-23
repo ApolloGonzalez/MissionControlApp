@@ -11,6 +11,7 @@ namespace MissionControlApp.API.Dtos
         public string DataDomainExpert { get; set; }
         public string ChallengeSolution { get; set; }
         public string DataQuality { get; set; }
+        public ulong EstimatedCost { get; set; }        
         public string ChallengeType { get; set; }
         public string InfrastructureRequirement { get; set; }
         public string AccuracyRequirement { get; set; }

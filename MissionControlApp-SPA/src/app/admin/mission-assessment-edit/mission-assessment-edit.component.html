@@ -11,28 +11,71 @@
 <div class="row">
   <div class="col ml-1">
     <form #editMissionAssessmentForm="ngForm" id="editMissionAssessmentForm" (ngSubmit)="updateMissionAssessment()">
-      <h5>Data Location</h5>
+      <h5 class="d-inline-block">Data Location</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="dataLocation" rows="2"
         [(ngModel)]="missionAssessment.dataLocation"></textarea>
-      <h5 class="mt-3">Data Type</h5>
+      <h5 class="mt-3 d-inline-block">Data Type</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="dataType" rows="2"
         [(ngModel)]="missionAssessment.dataType"></textarea>        
-      <h5 class="mt-3">Data Domain Expert</h5>
+      <h5 class="mt-3 d-inline-block">Data Domain Expert</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="dataDomainExpert" rows="2"
         [(ngModel)]="missionAssessment.dataDomainExpert"></textarea>
-      <h5 class="mt-3">Data Quality</h5>
+      <h5 class="mt-3 d-inline-block">Data Quality</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="dataQuality" rows="2"
         [(ngModel)]="missionAssessment.dataQuality"></textarea>
-      <h5 class="mt-3">Challenge Solution (Propose a solution to the challenge)</h5>
+      
+      <h5 class="mt-3 d-inline-block">Estimated Cost</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="text" 
+            class="form-control col-4" 
+            name="estimatedCost"
+            [(ngModel)]="missionAssessment.estimatedCost">
+          <div class="input-group-append">
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+      </div>        
+      <h5 class="d-inline-block">Challenge Solution (Propose a solution to the challenge)</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="challengeSolution" rows="2"
         [(ngModel)]="missionAssessment.challengeSolution"></textarea>
-      <h5 class="mt-3">Challenge Type (What is the type of challenge?)</h5>
+      <h5 class="mt-3 d-inline-block">Challenge Type (What is the type of challenge?)</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="challengeType" rows="2"
         [(ngModel)]="missionAssessment.challengeType"></textarea>
-      <h5 class="mt-3">Infrastructure Requirements</h5>
+      <h5 class="mt-3 d-inline-block">Infrastructure Requirements</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="infrastructureRequirement" rows="2"
         [(ngModel)]="missionAssessment.infrastructureRequirement"></textarea>
-      <h5 class="mt-3">Solution Accuracy (How accurate does the ML model need to be)</h5>
+      <h5 class="mt-3 d-inline-block">Solution Accuracy (How accurate does the ML model need to be)</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" name="accuracyRequirement" rows="2"
         [(ngModel)]="missionAssessment.accuracyRequirement"></textarea>
     </form>

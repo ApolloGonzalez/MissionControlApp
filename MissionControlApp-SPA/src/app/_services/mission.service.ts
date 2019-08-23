@@ -62,35 +62,6 @@ export class MissionService {
       );
   }
 
-  getMissionsInQueue(id: number, page?, itemsPerPage?, missionParams?): Observable<PaginatedResult<Mission[]>> {
-    const paginatedResult: PaginatedResult<Mission[]> = new PaginatedResult<Mission[]>();
-
-    let params = new HttpParams();
-
-    if (page != null && itemsPerPage != null) {
-      params = params.append('pageNumber', page);
-      params = params.append('pageSize', itemsPerPage);
-    }
-
-    if (missionParams != null) {
-      params = params.append('minAge', missionParams.minAge);
-      params = params.append('maxAge', missionParams.maxAge);
-      params = params.append('gender', missionParams.gender);
-      params = params.append('orderBy', missionParams.orderBy);
-    }
-
-    return this.http.get<Mission[]>(this.baseUrl + 'users/' + id + '/missions/getmissionsinqueue', { observe: 'response', params})
-      .pipe(
-        map(response => {
-          paginatedResult.result = response.body;
-          if (response.headers.get('Pagination') != null) {
-            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
-          }
-          return paginatedResult;
-        })
-      );
-  }
-
   getMissionCreateFormLists(userId: number): Observable<MissionCreateFormLists> {
     return this.http
       .get<MissionCreateFormLists>(this.baseUrl + 'users/' + userId + '/missions/missioncreateformlists');

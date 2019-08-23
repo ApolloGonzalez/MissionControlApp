@@ -14,6 +14,9 @@ export interface Mission {
     challenge: string;
     desiredOutcome: string;
     businessImpact: string;
+    estimatedRoi: number;
+    actualRoi: number;
+    actualCost: number;
     timeFrame: number;
     dateCreated: Date;
     active: boolean;

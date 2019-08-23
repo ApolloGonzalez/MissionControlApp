@@ -36,6 +36,7 @@ export class MissionCreateAssessmentComponent implements OnInit {
       infrastructureRequirement: [''],
       accuracyRequirement: [''],
       missionId: this.missionId,
+      estimatedCost: [''],
       userId: this.authService.decodedToken.nameid
     });
   }

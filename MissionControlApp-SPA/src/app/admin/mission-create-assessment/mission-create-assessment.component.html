@@ -5,22 +5,63 @@
 <div class="row">
   <div class="col ml-1">
     <form [formGroup]="missionAssessmentForm" (ngSubmit)="createMissionAssessment()">
-      <h5>Data Location</h5>
+      <h5 class="mt-3 d-inline-block">Data Location</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="dataLocation" rows="2">
           </textarea>
-      <h5 class="mt-3">Data Type</h5>
+      <h5 class="mt-3 d-inline-block">Data Type</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="dataType" rows="2"></textarea>
-      <h5 class="mt-3">Data Domain Expert</h5>
+      <h5 class="mt-3 d-inline-block">Data Domain Expert</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="dataDomainExpert" rows="2"></textarea>
-      <h5 class="mt-3">Data Quality</h5>
+      <h5 class="mt-3 d-inline-block">Data Quality</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="dataQuality" rows="2"></textarea>
-      <h5 class="mt-3">Challenge Solution (Propose a solution to the challenge)</h5>
+      <h5 class="mt-3 d-inline-block">Estimated Cost</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="text" 
+            class="form-control col-4" 
+            formControlName="estimatedCost">
+          <div class="input-group-append">
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+      </div>
+      <h5 class="mt-3 d-inline-block">Challenge Solution (Propose a solution to the challenge)</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="challengeSolution" rows="2"></textarea>
-      <h5 class="mt-3">Challenge Type (What is the type of challenge?)</h5>
+      <h5 class="mt-3 d-inline-block">Challenge Type (What is the type of challenge?)</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="challengeType" rows="2"></textarea>
-      <h5 class="mt-3">Infrastructure Requirements</h5>
+      <h5 class="mt-3 d-inline-block">Infrastructure Requirements</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="infrastructureRequirement" rows="2"></textarea>
-      <h5 class="mt-3">Solution Accuracy (How accurate does the ML model need to be)</h5>
+      <h5 class="mt-3 d-inline-block">Solution Accuracy (How accurate does the ML model need to be)</h5>
+      <i class="fa fa-info-circle fa-1x fa-border m-1"
+      tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+      style="color: #083f86;"></i>
       <textarea class="form-control" formControlName="accuracyRequirement" rows="2"></textarea>
       <div class="row">
           <div class="col-sm-12">

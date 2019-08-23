@@ -34,6 +34,7 @@ import { MissionManagementComponent } from './admin/mission-management/mission-m
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { MissionAssessmentResolver } from './_resolvers/mission-assessment.resolver';
 import { MissionDashboardComponent } from './missions/mission-dashboard/mission-dashboard.component';
+import { MissionManagementResolver } from './_resolvers/mission-management.resolver';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -95,9 +96,7 @@ export const appRoutes: Routes = [
             {path: 'lists', component: ListsComponent, resolve: {users: ListsResolver}},
             {
                 path: 'admin',
-                /* component: AdminPanelComponent, */
                 component: AdminComponent,
-                /* resolve: { missions: MissionListResolver }, */
                 data:
                 {
                     roles: ['Admin', 'Moderator', 'MissionAdmin', 'UserManager']
@@ -132,7 +131,7 @@ export const appRoutes: Routes = [
                     {
                         path: 'missionmanagement/:id',
                         component: MissionManagementComponent,
-                        resolve: { mission: MissionDetailResolver },
+                        resolve: { mission: MissionManagementResolver },
                         data:
                         {
                             roles: ['Admin', 'MissionAdmin']

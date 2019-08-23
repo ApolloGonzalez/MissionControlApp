@@ -1,10 +1,5 @@
 <div class="container mt-4">
-  <form
-    class="form-inline"
-    #form="ngForm"
-    (ngSubmit)="loadMissions()"
-    novalidate
-  >
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadMissions()" novalidate>
     <!-- <div class="form-group">
           <label for="minAge">Age From</label>
           <input type="number" class="form-control ml-1" style="width: 70px" id="minAge"
@@ -26,24 +21,12 @@
     </div>
     <div class="col">
       <div class="btn-group float-right">
-        <button
-          type="button"
-          name="orderBy"
-          class="btn btn-primary"
-          [(ngModel)]="missionParams.orderBy"
-          (click)="loadMissions()"
-          btnRadio="lastActive"
-        >
+        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="missionParams.orderBy"
+          (click)="loadMissions()" btnRadio="lastActive">
           Last Active
         </button>
-        <button
-          type="button"
-          name="orderBy"
-          class="btn btn-primary"
-          [(ngModel)]="missionParams.orderBy"
-          (click)="loadMissions()"
-          btnRadio="created"
-        >
+        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="missionParams.orderBy"
+          (click)="loadMissions()" btnRadio="created">
           Newest Missions
         </button>
       </div>
@@ -60,9 +43,9 @@
     <thead>
       <tr class="table-primary">
         <th scope="col">Title</th>
-        <th scope="col">Challenge</th>
         <th scope="col">Create Date</th>
         <th scope="col">TimeFrame</th>
+        <th scope="col">EstimatedROI</th>
         <th scope="col" class="text-center">Team Assigned</th>
       </tr>
     </thead>
@@ -73,27 +56,19 @@
             {{mission.missionName | titlecase}}
           </a>
         </th>
-        <td>{{mission.challenge}}</td>
         <td>{{mission.dateCreated | timeAgo}}</td>
         <td>{{mission.timeFrame}} day(s)</td>
-        <td class="text-center" *ngIf="mission.missionTeam?.length === 0" >No</td>
-        <td class="text-center" *ngIf="mission.missionTeam?.length > 0" >Yes</td>
+        <td>{{mission.estimatedRoi | currency : 'USD' : 'symbol' : '1.0'}}</td>
+        <td class="text-center" *ngIf="mission.missionTeam?.length === 0">No</td>
+        <td class="text-center" *ngIf="mission.missionTeam?.length > 0">Yes</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div class="d-flex justify-content-center">
-  <pagination
-    [boundaryLinks]="true"
-    [totalItems]="pagination.totalItems"
-    [(ngModel)]="pagination.currentPage"
-    [itemsPerPage]="pagination.itemsPerPage"
-    (pageChanged)="pageChanged($event)"
-    previousText="&lsaquo;"
-    nextText="&rsaquo;"
-    firstText="&laquo;"
-    lastText="&raquo;"
-  >
+  <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
+    [itemsPerPage]="pagination.itemsPerPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+    nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
   </pagination>
 </div>
