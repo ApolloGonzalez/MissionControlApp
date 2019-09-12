@@ -78,7 +78,7 @@ export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+/*  export let options: Partial<IConfig> | (() => Partial<IConfig>); delete as it doesnt work with Angular 8*/
 
 @NgModule({
   declarations: [
