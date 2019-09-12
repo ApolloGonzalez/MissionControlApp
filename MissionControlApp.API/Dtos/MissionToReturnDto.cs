@@ -24,6 +24,8 @@ namespace MissionControlApp.API.Dtos
         public ulong ActualRoi { get; set; }
         public ulong ActualCost { get; set; }
         public int TimeFrame { get; set; }
+        public int MissionStatusId { get; set; }
+        public string MissionStatusAlias { get; set; }
         public MissionAssessmentToReturnDto MissionAssessment { get; set; }
         public ICollection<MissionAcceleratorToReturnDto> Accelerators { get; set; }
         public ICollection<MissionPlatformToReturnDto> Platforms { get; set; }

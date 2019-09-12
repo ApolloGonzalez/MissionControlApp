@@ -86,7 +86,7 @@ namespace MissionControlApp.API
                         .Build();
                     options.Filters.Add(new AuthorizeFilter(policy));
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(opt =>
                 {
                     opt.SerializerSettings.ReferenceLoopHandling =
@@ -94,8 +94,7 @@ namespace MissionControlApp.API
                 });
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
-            Mapper.Reset();
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(MissionControlRepository).Assembly);
             services.AddTransient<Seed>();
             services.AddScoped<IMissionControlRepository, MissionControlRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
@@ -103,7 +102,7 @@ namespace MissionControlApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -129,7 +128,6 @@ namespace MissionControlApp.API
             }
 
             // app.UseHttpsRedirection();
-            //seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
             app.UseDefaultFiles();

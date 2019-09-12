@@ -71,6 +71,8 @@ import { MissionCreateAssessmentComponent } from './admin/mission-create-assessm
 import { MissionAssessmentResolver } from './_resolvers/mission-assessment.resolver';
 import { MissionDashboardComponent } from './missions/mission-dashboard/mission-dashboard.component';
 import { MissionManagementResolver } from './_resolvers/mission-management.resolver';
+import { AcceleratorUseCaseModalComponent } from './missions/accelerator-use-case-modal/accelerator-use-case-modal.component';
+import { TruncateTextPipe } from './_pipes/truncate-text.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -108,6 +110,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     MissionManagementComponent,
     MissionDashboardComponent,
     PhotoEditorComponent,
+    AcceleratorUseCaseModalComponent,
     TimeAgoPipe,
     MemberMessagesComponent,
     AdminPanelComponent,
@@ -117,7 +120,8 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     HasRoleDirective,
     UserManagementComponent,
     PhotoManagementComponent,
-    RolesModalComponent
+    RolesModalComponent,
+    TruncateTextPipe
   ],
   imports: [
     BrowserModule,
@@ -168,7 +172,8 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
       AdminService
     ],
   entryComponents: [
-    RolesModalComponent
+    RolesModalComponent,
+    AcceleratorUseCaseModalComponent
   ],
   bootstrap: [AppComponent]
 })

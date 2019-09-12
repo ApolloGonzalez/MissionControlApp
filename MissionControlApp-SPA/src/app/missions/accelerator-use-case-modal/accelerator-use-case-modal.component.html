@@ -1,0 +1,25 @@
+
+<div class="modal-header">
+  <h4 class="modal-title pull-left">AI Use Case for <b>{{accelerator.acceleratorName}}</b></h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  {{usecase.description}}
+  <div class="mt-3">
+    <img 
+      class="card-img-top" 
+      src="https://blog-assets.hootsuite.com/wp-content/uploads/2024/02/Screen-Shot-2019-04-03-at-9.37.44-AM.png" 
+      alt="{{accelerator.acceleratorName}}">
+  </div>
+  <div *ngFor="let commonuse of usecase.commonuses">
+    {{commonuse}}
+  </div>
+  <div *ngFor="let visual of usecase.visuals">
+    {{visual.description}}, {{visual.imglocation}} 
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">close</button>
+</div>

@@ -11,6 +11,8 @@ import { MissionCreateFormLists } from 'src/app/_models/missioncreateformlists';
 import { Accelerator } from 'src/app/_models/accelerator';
 import { MissionService } from 'src/app/_services/mission.service';
 import { CurrencyPipe } from '@angular/common';
+import { BsModalService, BsModalRef } from '../../../../node_modules/ngx-bootstrap';
+import { AcceleratorUseCaseModalComponent } from '../accelerator-use-case-modal/accelerator-use-case-modal.component';
 
 @Component({
   selector: 'app-mission-create',
@@ -28,9 +30,11 @@ export class MissionCreateComponent implements OnInit {
   missionCreateFormLists: MissionCreateFormLists;
   missionForm: FormGroup;
   showAccelerators = false;
+  bsModalRef: BsModalRef;
 
   constructor(private authService: AuthService, private missionService: MissionService, private router: Router,
-    private alertify: AlertifyService, private route: ActivatedRoute, private fb: FormBuilder) { }
+    private alertify: AlertifyService, private route: ActivatedRoute, private fb: FormBuilder,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
      this.route.data.subscribe(data => {
@@ -136,6 +140,15 @@ export class MissionCreateComponent implements OnInit {
         (<FormArray>this.missionForm.get('missionaccelerators')).removeAt(index);
         });
       }
+  }
+
+  showAcceleratorUseCase(accelerator: Accelerator) {
+    const initialState = {
+      accelerator
+    };
+    this.bsModalRef = this.modalService
+      .show(AcceleratorUseCaseModalComponent, Object.assign({initialState}, { class: 'gray modal-lg' }));
+    this.bsModalRef.content.closeBtnName = 'Close';
   }
 
   cancel() {

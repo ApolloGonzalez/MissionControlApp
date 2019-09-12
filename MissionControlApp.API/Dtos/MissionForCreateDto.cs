@@ -17,6 +17,7 @@ namespace MissionControlApp.API.Dtos
         public ulong ActualCost { get; set; }
         public string BusinessImpact { get; set; }
         public int TimeFrame { get; set; }
+        public int MissionStatusId { get; set; }
         public ICollection<MissionAccelerator> MissionAccelerators { get; set; }
         public ICollection<MissionPlatform> MissionPlatforms { get; set; }
         public bool Public { get; set; }

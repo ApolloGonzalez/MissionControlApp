@@ -21,6 +21,7 @@ namespace MissionControlApp.API.Data
         public DbSet<MissionPlatform> MissionPlatforms { get; set; }
         public DbSet<BusinessFunction> BusinessFunctions { get; set; }
         public DbSet<Industry> Industries { get; set; }
+        public DbSet<MissionStatus> MissionStatus { get; set; }
         public DbSet<MissionTeam> MissionTeams { get; set; }
         public DbSet<MissionAssessment> MissionAssessments { get; set; }
 
@@ -96,8 +97,23 @@ namespace MissionControlApp.API.Data
                 .HasOne(i => i.Industry)
                 .WithOne(m => m.Mission)
                 .HasForeignKey<Mission>(m => m.IndustryId)
-                .OnDelete(DeleteBehavior.Restrict);    */              
+                .OnDelete(DeleteBehavior.Restrict);     */   
 
+
+             builder.Entity<Mission>()
+                .HasIndex(p => p.MissionStatusId)
+                .IsUnique(false);
+            
+            builder.Entity<Mission>()
+                .Property(m => m.MissionStatusId)
+                .HasDefaultValue(2); 
+/* 
+             builder.Entity<Mission>()
+                .HasOne(m => m.MissionStatus)
+                .WithOne(ms => ms.Mission)
+                .HasForeignKey<Mission>(m => m.MissionStatusId)
+                .OnDelete(DeleteBehavior.Restrict);
+ */
             builder.Entity<Like>()
                 .HasKey(k => new {k.LikerId, k.LikeeId});
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MissionControlApp.API.Models
 {
@@ -26,6 +25,8 @@ namespace MissionControlApp.API.Models
         public ICollection<MissionTeam> MissionTeam { get; set; }
         public MissionAssessment MissionAssessment { get; set; }
         public bool Public { get; set; }
+        public int MissionStatusId { get; set; }
+        public MissionStatus MissionStatus { get; set; }
         public DateTime? DateCreated { get; set; }
         public bool Active { get; set; }
         public Mission()

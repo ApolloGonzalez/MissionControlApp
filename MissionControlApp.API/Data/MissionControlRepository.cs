@@ -58,6 +58,11 @@ namespace MissionControlApp.API.Data
                 .Where(b => b.Active == true).ToListAsync();
         }
 
+        public async Task<MissionStatus> GetMissionStatusByStatusCode(string statusCode)
+        {
+            return await _context.MissionStatus.FirstOrDefaultAsync(s => s.MissionStatusCode == statusCode);
+        }
+
         public async Task<IEnumerable<Accelerator>> GetAcceleratorsByBusinessFunctionAndIndustry(int businessFunctionId, int industryId)
         {
             return await _context.Accelerators
@@ -112,6 +117,7 @@ namespace MissionControlApp.API.Data
                 .Include(u => u.User)
                 .Include(b => b.BusinessFunction)
                 .Include(i => i.Industry)
+                .Include(ms => ms.MissionStatus)
                 .Include(a => a.MissionAssessment)
                 .Include(ma => ma.MissionAccelerators)
                 .ThenInclude(a => a.Accelerator)
@@ -129,6 +135,7 @@ namespace MissionControlApp.API.Data
                 .Include(u => u.User)
                 .Include(b => b.BusinessFunction)
                 .Include(i => i.Industry)
+                .Include(ms => ms.MissionStatus)
                 .Include(ma => ma.MissionAccelerators)
                 .ThenInclude(a => a.Accelerator)
                 .Include(mp => mp.MissionPlatforms)

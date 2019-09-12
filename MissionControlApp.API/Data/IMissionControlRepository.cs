@@ -30,5 +30,6 @@ namespace MissionControlApp.API.Data
         Task<MissionTeam> GetMissionTeamMember(int missionId, int teamMemberUserId);
         Task<IEnumerable<User>> GetMissionEmployees();
         Task<MissionAssessment> GetMissionAssessment(int userId, int missionId);
+        Task<MissionStatus> GetMissionStatusByStatusCode(string statusCode);
     }
 }

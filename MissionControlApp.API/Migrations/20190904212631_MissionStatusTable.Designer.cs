@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MissionControlApp.API.Data;
 
 namespace MissionControlApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190904212631_MissionStatusTable")]
+    partial class MissionStatusTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,10 +233,6 @@ namespace MissionControlApp.API.Migrations
 
                     b.Property<string>("MissionName");
 
-                    b.Property<int>("MissionStatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(2);
-
                     b.Property<bool>("Public");
 
                     b.Property<int>("TimeFrame");
@@ -246,8 +244,6 @@ namespace MissionControlApp.API.Migrations
                     b.HasIndex("BusinessFunctionId");
 
                     b.HasIndex("IndustryId");
-
-                    b.HasIndex("MissionStatusId");
 
                     b.HasIndex("UserId");
 
@@ -640,11 +636,6 @@ namespace MissionControlApp.API.Migrations
                     b.HasOne("MissionControlApp.API.Models.Industry", "Industry")
                         .WithMany()
                         .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MissionControlApp.API.Models.MissionStatus", "MissionStatus")
-                        .WithMany()
-                        .HasForeignKey("MissionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MissionControlApp.API.Models.User", "User")

@@ -17,6 +17,8 @@ namespace MissionControlApp.API.Controllers
     [ApiController]
     public class MissionsController : ControllerBase
     {
+        // Todo add this const to a config file
+        const string defaultMissionStatus = "inprocess";
         private readonly IMissionControlRepository _repo;
         private readonly IMapper _mapper;
 
@@ -31,12 +33,17 @@ namespace MissionControlApp.API.Controllers
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
+
+            var missionStatus = await _repo.GetMissionStatusByStatusCode(defaultMissionStatus);
+
+            missionForCreateDto.MissionStatusId = missionStatus.Id;
             
              var mission = new Mission {
                 UserId = userId,
                 MissionName = missionForCreateDto.MissionName,
                 IndustryId = missionForCreateDto.IndustryId,
                 BusinessFunctionId = missionForCreateDto.BusinessFunctionId,
+                MissionStatusId = missionForCreateDto.MissionStatusId,
                 DesiredOutcome = missionForCreateDto.DesiredOutcome,
                 EstimatedRoi = missionForCreateDto.EstimatedRoi,
                 ActualRoi = missionForCreateDto.ActualRoi,
@@ -95,6 +102,8 @@ namespace MissionControlApp.API.Controllers
                 IndustryAlias = mission.Industry.IndustryAlias,
                 BusinessFunctionId = mission.BusinessFunctionId,
                 BusinessFunctionAlias = mission.BusinessFunction.BusinessFunctionAlias,
+                MissionStatusId = mission.MissionStatusId,
+                MissionStatusAlias = mission.MissionStatus.MissionStatusAlias,
                 Challenge = mission.Challenge,
                 DesiredOutcome = mission.DesiredOutcome,
                 BusinessImpact = mission.BusinessImpact,
@@ -174,6 +183,8 @@ namespace MissionControlApp.API.Controllers
                     IndustryAlias = mission.Industry.IndustryAlias,
                     BusinessFunctionId = mission.BusinessFunctionId,
                     BusinessFunctionAlias = mission.BusinessFunction.BusinessFunctionAlias,
+                    MissionStatusId = mission.MissionStatusId,
+                    MissionStatusAlias = mission.MissionStatus.MissionStatusAlias,
                     Challenge = mission.Challenge,
                     DesiredOutcome = mission.DesiredOutcome,
                     BusinessImpact = mission.BusinessImpact,

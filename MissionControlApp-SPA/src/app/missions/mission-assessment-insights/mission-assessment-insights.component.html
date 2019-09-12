@@ -6,14 +6,25 @@
           <i class="fa fa-search" style="color: #083f86;"></i>
           Mission Assessment Insights
         </div>
-        <div class="float-right" style="padding-top: 5px;">
+        <div class="float-right" 
+          style="padding-top: 5px;"
+          *ngIf="missionAssessment !== null">
           <b>Created:</b> {{missionAssessment.dateCreated | timeAgo }}
           <div class="mt-3">
             <b>Create by:</b> {{missionAssessment.user.knownAs}}
           </div>
         </div>
       </div>
-      <div class="container mb-3">
+
+      <div class="container mb-3" *ngIf="missionAssessment == null">
+        <div class="col-sm-12">
+          <p class="mb-4 mt-4">
+            Our team is currently reviewing your mission request and will get with you soon to start the Mission Assessment phase.
+          </p>
+        </div>
+      </div>
+
+      <div class="container mb-3" *ngIf="missionAssessment !== null">
         <div class="col-sm-12">
           <h4 class="card-title mb-0 mt-3 d-inline-block">Data Location</h4> &nbsp;
           <i class="fa fa-info-circle fa-1x fa-border m-1"

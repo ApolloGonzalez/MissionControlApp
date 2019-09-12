@@ -1,4 +1,4 @@
-<div class="container" style="max-width: 50%;">
+<div class="container col-sm-6">
   <div class="card bg-light mt-2 mb-3">
     <div class="card-header" style="clear: both; line-height: 0; padding-top: 20px; padding-bottom: 0px;">
       <p class="float-left text-capitalize" style="font-size:x-large;">
@@ -11,23 +11,22 @@
         <div class="jumbotron bg-secondary p-3">
           <div class="row">
             <div class="col-sm-12">
-              <span class="fa-stack fa-2x fa-lg" style="line-height: .5em;">
-                <i class="fa fa-circle fa-stack-2x" style="line-height: .5em;"></i>
-                <i class="fa fa-stack-1x fa-inverse" style="line-height: .5em;">
+              <span class="fa-stack fa-2x fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stack-1x fa-inverse">
                   <span 
                     style="font-size: .5em; 
-                      line-height: 1.8em;
-                      text-align: center;
-                      font-weight: bold;
-                      font-family:Arial, Helvetica, sans-serif;  
-                      display: block;">Step 1
+                    text-align: center;
+                    font-weight: bold;
+                    font-family:Arial, Helvetica, sans-serif;  
+                    display: block;">Step 1
                   </span>
                 </i>
               </span>
               <span style="font-size: 1.2em; font-weight: bold;" class="d-inline-block p-0">
-                Learn from our catalog of Use Cases or <br/> Skip to Step 2
+                Select your Industry and/or Business function
                 <i class="fa fa-info-circle fa-1x fa-border"
-                tooltip="Please select an industry and/or business function to see what AI Accelerators are available. Once you select an accelerator Mission Control will illustrate just what AI can do for you!"
+                tooltip="Please select an industry and/or business function to see what AI uses cases are available. Once you select a use case Mission Control will help you learn just what AI can do for you!"
                 style="color: #083f86;"></i> 
               </span>              
               <hr class="mt-0">
@@ -66,23 +65,45 @@
             <div class="col-sm-12">
               <div class="form-group p-2" style="border: 2px solid #e2e2e2dc; border-radius: 5px;"
                 *ngIf="showAccelerators">
-                <h5 class="control-label font-weight-bold" style="margin-right:10px">AI Accelerator Use Cases</h5>
+                <h5 class="control-label font-weight-bold" style="margin-right:10px">AI Use Cases</h5>
                 <h6>To learn more about how AI can help click on any of the Use Cases below. 
                   You can also check the Use Cases of interest now and review later.</h6>
                 <label 
                   formArrayName="missionaccelerators" 
-                  class="checkbox-inline mr-3 p-2 alert alert-info"
+                  class="checkbox-inline mr-3 mt-3"
                   *ngFor="let accelerator of missionForm.controls['missionaccelerators'].controls; let i = index">
                   <input 
                     type="checkbox"
                     value="{{accelerators[i].id}}" 
                     [formControlName]="i">
-                    <!-- {{accelerators[i].acceleratorName}}   -->
-                    <a href="" class="text-white ml-2 mb-2 mr-3">{{accelerators[i].acceleratorName}}</a>
+                  <button (click)="showAcceleratorUseCase(accelerators[i])" 
+                    class="btn btn-info ml-2 line">
+                    {{accelerators[i].acceleratorName}}
+                  </button>    
                 </label>
+                
               </div>
             </div>
           </div>
+
+          <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1"
+              role="dialog" aria-labelledby="dialog-sizes-name1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 id="dialog-sizes-name1" class="modal-title pull-left">Large modal</h4>
+                  <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
         </div>
         <div class="jumbotron bg-secondary p-3">
           <div class="row">

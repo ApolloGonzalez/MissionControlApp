@@ -6,8 +6,12 @@
         {{mission.missionName | titlecase}}
       </a>
     </h5>
-    <h6 class="card-subtitle mb-2 text-muted">created: {{mission.dateCreated | timeAgo}} | timeframe: {{mission.timeFrame}} day(s)</h6>
-    <p class="card-text">{{mission.challenge}}</p>
+    <h6 
+      class="card-subtitle mb-2 text-muted">
+        created: {{mission.dateCreated | timeAgo}} | timeframe: {{mission.timeFrame}} day(s)
+        <br>status: {{mission.missionStatusAlias}}
+    </h6>
+    <p class="card-text">{{mission.challenge | truncateText:10}}</p>
     <ul class="fa-ul ml-0 mb-0">
       <li class="mr-2">
         <i class="fa fa-check-circle-o" style="color: #083f86;"></i> Experiments: <b>30</b>
