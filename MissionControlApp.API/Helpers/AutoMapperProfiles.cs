@@ -54,6 +54,7 @@ namespace MissionControlApp.API.Helpers
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<UserForUpdateDto, User>();
             CreateMap<MissionAssessmentForUpdateDto, MissionAssessment>();
+            CreateMap<MissionAssessment, MissionAssessmentToReturnDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<UserForRegisterDto, User>();

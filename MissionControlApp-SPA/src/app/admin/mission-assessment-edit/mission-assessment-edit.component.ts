@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class MissionAssessmentEditComponent implements OnInit {
   @Input() missionAssessment: Assessment;
-  @ViewChild('editMissionAssessmentForm') editMissionAssessmentForm: NgForm;
+  @ViewChild('editMissionAssessmentForm', { static: true }) editMissionAssessmentForm: NgForm;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editMissionAssessmentForm.dirty) {

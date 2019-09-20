@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -78,7 +78,14 @@ export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
-/*  export let options: Partial<IConfig> | (() => Partial<IConfig>); delete as it doesnt work with Angular 8*/
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
+
+export class CustomHammerConfig extends HammerGestureConfig  {
+  overrides = {
+      pinch: { enable: false },
+      rotate: { enable: false }
+  };
+}
 
 @NgModule({
   declarations: [
@@ -169,7 +176,8 @@ export function tokenGetter() {
       MissionAssessmentResolver,
       MissionManagementResolver,
       UsersWithRolesResolver,
-      AdminService
+      AdminService,
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
     ],
   entryComponents: [
     RolesModalComponent,
