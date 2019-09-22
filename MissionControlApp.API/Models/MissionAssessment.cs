@@ -6,9 +6,9 @@ namespace MissionControlApp.API.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public int MissionId { get; set; }
-        public Mission Mission { get; set; }
+        public virtual Mission Mission { get; set; }
         public string DataLocation { get; set; }
         public string DataType { get; set; }
         public string DataDomainExpert { get; set; }

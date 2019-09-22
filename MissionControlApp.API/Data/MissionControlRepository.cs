@@ -114,7 +114,7 @@ namespace MissionControlApp.API.Data
         public async Task<Mission> GetMission(int userId, int missionId)
         {
             return await _context.Missions
-                .Include(u => u.User)
+               /*  .Include(u => u.User)
                 .Include(b => b.BusinessFunction)
                 .Include(i => i.Industry)
                 .Include(ms => ms.MissionStatus)
@@ -125,23 +125,23 @@ namespace MissionControlApp.API.Data
                 .ThenInclude(p => p.Platform)
                 .Include(mt => mt.MissionTeam)
                 .ThenInclude(mu => mu.User)
-                .ThenInclude(p => p.Photos)
+                .ThenInclude(p => p.Photos) */
                 .FirstOrDefaultAsync(i => i.Id == missionId && i.UserId == userId);
         }
 
         public async Task<PagedList<Mission>> GetMissions(MissionParams missionParams)
         {
             var missions = _context.Missions
-                .Include(u => u.User)
-                .Include(b => b.BusinessFunction)
-                .Include(i => i.Industry)
-                .Include(ms => ms.MissionStatus)
-                .Include(ma => ma.MissionAccelerators)
-                .ThenInclude(a => a.Accelerator)
-                .Include(mp => mp.MissionPlatforms)
-                .ThenInclude(p => p.Platform)
-                .Include(mt => mt.MissionTeam)
-                .Where(mu => mu.UserId == missionParams.UserId)
+                // .Include(u => u.User)
+                // .Include(b => b.BusinessFunction)
+                // .Include(i => i.Industry)
+                // .Include(ms => ms.MissionStatus)
+                // .Include(ma => ma.MissionAccelerators)
+                // .ThenInclude(a => a.Accelerator)
+                // .Include(mp => mp.MissionPlatforms)
+                // .ThenInclude(p => p.Platform)
+                // .Include(mt => mt.MissionTeam)
+                .Where(mu => mu.UserId == missionParams.UserId).OrderBy(d => d.DateCreated)
                 .AsQueryable();
 
             return await PagedList<Mission>.CreateAsync(missions, missionParams.PageNumber, missionParams.PageSize);
@@ -169,7 +169,7 @@ namespace MissionControlApp.API.Data
 
         public async Task<User> GetUser(int id, bool isCurrentUser)
         {
-            var query = _context.Users.Include(p => p.Photos).AsQueryable();
+            var query = _context.Users.AsQueryable();
 
             if (isCurrentUser)
                 query = query.IgnoreQueryFilters();
@@ -181,8 +181,7 @@ namespace MissionControlApp.API.Data
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = _context.Users.Include(p => p.Photos)
-                .OrderByDescending(u => u.LastActive).AsQueryable();
+            var users = _context.Users.OrderByDescending(u => u.LastActive).AsQueryable();
 
             users = users.Where(u => u.Id != userParams.UserId);
 
@@ -226,10 +225,7 @@ namespace MissionControlApp.API.Data
 
         private async Task<IEnumerable<int>> GetUserLikes(int id, bool likers)
         {
-            var user = await _context.Users
-                .Include(x => x.Likers)
-                .Include(x => x.Likees)
-                .FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
 
             if (likers)
             {
@@ -248,10 +244,7 @@ namespace MissionControlApp.API.Data
 
         public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
         {
-            var messages = _context.Messages
-                .Include(u => u.Sender).ThenInclude(p => p.Photos)
-                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
-                .AsQueryable();
+            var messages = _context.Messages.AsQueryable();
 
             switch (messageParams.MessageContainer)
             {
@@ -277,8 +270,6 @@ namespace MissionControlApp.API.Data
         public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
         {
             var messages = await _context.Messages
-                .Include(u => u.Sender).ThenInclude(p => p.Photos)
-                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
                 .Where(m => m.RecipientId == userId && m.RecipientDeleted == false 
                     && m.SenderId == recipientId 
                     || m.RecipientId == recipientId && m.SenderId == userId 

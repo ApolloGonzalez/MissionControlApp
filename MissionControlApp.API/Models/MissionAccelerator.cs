@@ -7,9 +7,9 @@ namespace MissionControlApp.API.Models
     {
         public int Id { get; set; }
         public int MissionId { get; set; }
-        public Mission Mission { get; set; }
+        public virtual Mission Mission { get; set; }
         public int AcceleratorId { get; set; }
-        public Accelerator Accelerator { get; set; }
+        public virtual Accelerator Accelerator { get; set; }
         public DateTime? DateCreated { get; set; }
         public bool Active { get; set; }      
 

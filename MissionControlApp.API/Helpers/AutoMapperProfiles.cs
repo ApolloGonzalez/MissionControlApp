@@ -43,6 +43,7 @@ namespace MissionControlApp.API.Helpers
                     .MapFrom(u => u.User.Created))
                 .ForMember(m => m.LastActive, opt => opt
                     .MapFrom(u => u.User.LastActive));
+            CreateMap<Accelerator, AcceleratorToReturnDto>();
             CreateMap<Accelerator, MissionAcceleratorToReturnDto>();
             CreateMap<Platform, PlatformToReturnDto>();
             CreateMap<BusinessFunction, BusinessFunctionToReturnDto>();

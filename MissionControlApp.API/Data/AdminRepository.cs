@@ -35,24 +35,25 @@ namespace MissionControlApp.API.Data
         public async Task<MissionAssessment> GetMissionAssessment(int missionAssessmentId)
         {
             return await _context.MissionAssessments
-                .Include(u => u.User)
-                .Include(m => m.Mission)
+                /* .Include(u => u.User)
+                .Include(m => m.Mission) */
                 .FirstOrDefaultAsync(i => i.Id == missionAssessmentId);
         }
 
          public async Task<PagedList<Mission>> GetMissionsInQueue(MissionParams missionParams)
         {
             var missions = _context.Missions
-                .Include(u => u.User)
-                .Include(b => b.BusinessFunction)
-                .Include(i => i.Industry)
-                .Include(ma => ma.MissionAccelerators)
-                .ThenInclude(a => a.Accelerator)
-                .Include(mp => mp.MissionPlatforms)
-                .ThenInclude(p => p.Platform)
-                .Include(mt => mt.MissionTeam)
-                .ThenInclude(u => u.User)
-                .ThenInclude(p => p.Photos)
+                //.Include(u => u.User)
+                //.Include(b => b.BusinessFunction)
+                //.Include(i => i.Industry)
+                //.Include(ma => ma.MissionAccelerators)
+                //.ThenInclude(a => a.Accelerator)
+                //.Include(mp => mp.MissionPlatforms)
+                //.ThenInclude(p => p.Platform)
+                //.Include(mt => mt.MissionTeam)
+                //.ThenInclude(u => u.User)
+                //.ThenInclude(p => p.Photos)
+                .OrderBy(d => d.DateCreated)
                 .AsQueryable();
 
             return await PagedList<Mission>.CreateAsync(missions, missionParams.PageNumber, missionParams.PageSize);
@@ -61,7 +62,7 @@ namespace MissionControlApp.API.Data
         public async Task<Mission> GetMission(int missionId)
         {
             return await _context.Missions
-                .Include(u => u.User)
+                /* .Include(u => u.User)
                 .Include(b => b.BusinessFunction)
                 .Include(i => i.Industry)
                 .Include(a => a.MissionAssessment)
@@ -71,7 +72,7 @@ namespace MissionControlApp.API.Data
                 .ThenInclude(p => p.Platform)
                 .Include(mt => mt.MissionTeam)
                 .ThenInclude(mu => mu.User)
-                .ThenInclude(p => p.Photos)
+                .ThenInclude(p => p.Photos) */
                 .FirstOrDefaultAsync(i => i.Id == missionId);
         }
     }
