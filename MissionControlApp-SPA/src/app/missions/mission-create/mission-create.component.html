@@ -223,8 +223,16 @@
                     [formControlName]="i"> 
                     {{platforms[i].platformAlias}} 
                 </label> -->
-                <div formArrayName="missionplatforms" class="custom-control custom-checkbox d-inline-block"
+                <!-- <div formArrayName="missionplatforms" class="custom-control custom-checkbox d-inline-block"
                   *ngFor="let platform of missionForm.controls['missionplatforms'].controls; let i = index">
+                  <input class="custom-control-input" type="checkbox" value="{{platforms[i].id}}" id="platforms{{i}}"
+                    [formControlName]="i">
+                  <label class="mr-2 custom-control-label" for="platforms{{i}}">
+                    {{platforms[i].platformAlias}}
+                  </label>
+                </div> -->
+                <div formArrayName="missionplatforms" class="custom-control custom-checkbox d-inline-block"
+                  *ngFor="let platform of missionPlatformformData.controls; let i = index">
                   <input class="custom-control-input" type="checkbox" value="{{platforms[i].id}}" id="platforms{{i}}"
                     [formControlName]="i">
                   <label class="mr-2 custom-control-label" for="platforms{{i}}">

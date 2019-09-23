@@ -21,6 +21,8 @@ import { AcceleratorUseCaseModalComponent } from '../accelerator-use-case-modal/
 })
 export class MissionCreateComponent implements OnInit {
 
+  get missionPlatformformData() { return <FormArray>this.missionForm.get('missionplatforms'); }
+
   @Output() cancelCreateMission = new EventEmitter();
   mission: Mission;
   platforms: Platform[];
@@ -43,6 +45,8 @@ export class MissionCreateComponent implements OnInit {
 
     this.createMissionForm();
   }
+
+  
 
   createMissionForm() {
     this.platforms = this.missionCreateFormLists.platforms;

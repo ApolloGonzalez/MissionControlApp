@@ -78,7 +78,7 @@ export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+export let options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   overrides = {
