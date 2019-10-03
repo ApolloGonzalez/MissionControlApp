@@ -21,6 +21,8 @@ namespace MissionControlApp.API.Data
                     new Role{Name = "Admin"},
                     new Role{Name = "Moderator"},
                     new Role{Name = "VIP"},
+                    new Role{Name = "MissionAdmin"},
+                    new Role{Name = "UserManager"}
                 };
 
                 foreach (var role in roles)

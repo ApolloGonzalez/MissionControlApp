@@ -42,19 +42,18 @@ export class MissionCreateAssessmentComponent implements OnInit {
   }
 
   createMissionAssessment() {
-    // if (this.missionAssessmentForm.valid) {
+    if (this.missionAssessmentForm.valid) {
       this.missionAssessment = Object.assign({}, this.missionAssessmentForm.value);
 
-      /* this.adminService
+      this.adminService
         .createMissionAssessment(this.missionAssessment).subscribe(() => {
           this.alertify.success('Mission Assessment Created Successfully');
-          this.router.navigate(['/missionmanagement/' + this.missionAssessment.id]);
+          this.router.navigate(['admin/missionmanagement/' + this.missionAssessment.missionId]);
         }, error => {
           this.alertify.error(error);
-        }); */
-  //  }
-      this.router.navigate(['admin/missionmanagement/' + this.missionAssessment.missionId]);
-      console.log(this.missionAssessment);
+        });
+    }
+      // console.log(this.missionAssessment);
   }
 
   cancel() {
