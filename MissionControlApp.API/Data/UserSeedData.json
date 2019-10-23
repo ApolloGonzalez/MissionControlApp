@@ -12,7 +12,7 @@
       "Interests": "Dolore nisi eiusmod ut irure ullamco nulla dolore est sit tempor quis.",
       "City": "Efland",
       "Country": "Burundi",
-      "JobTitle": "",
+      "JobTitle": "NULL",
       "Employee": "False",
       "Photos": [
         {
@@ -58,7 +58,7 @@
       "Interests": "Fugiat consequat elit velit ullamco nisi qui cillum.",
       "City": "Hannasville",
       "Country": "Poland",
-      "JobTitle": "",      
+      "JobTitle": "NULL",      
       "Employee": "False", 
       "Photos": [
         {

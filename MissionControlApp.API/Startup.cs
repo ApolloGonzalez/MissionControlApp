@@ -136,10 +136,14 @@ namespace MissionControlApp.API
                         }
                     });
                 });
-                // app.UseHsts();
+                //uncomment when deploying to production
+                app.UseHsts();
             }
+            //uncomment when deploying to production 
+            //app.UseDeveloperExceptionPage();
 
-            // app.UseHttpsRedirection();
+            //uncomment when deploying to production
+            app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
             app.UseDefaultFiles();

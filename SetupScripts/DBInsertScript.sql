@@ -5,8 +5,6 @@ INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (1, 2)
 GO
 INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (7, 2)
 GO
-INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (11, 3)
-GO
 INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (1, 5)
 GO
 INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (7, 5)
