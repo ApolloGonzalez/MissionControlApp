@@ -24,6 +24,8 @@ namespace MissionControlApp.API.Data
         public DbSet<MissionStatus> MissionStatus { get; set; }
         public DbSet<MissionTeam> MissionTeams { get; set; }
         public DbSet<MissionAssessment> MissionAssessments { get; set; }
+        public DbSet<MissionAppSettings> MissionAppSettings { get; set; }
+        public DbSet<MissionMetrics> MissionMetrics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
